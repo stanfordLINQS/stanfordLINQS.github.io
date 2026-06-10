@@ -155,77 +155,160 @@ p { margin: 0 0 1.5em 0; }
   font-size: 1.25em;
 }
 
-.svg-filters {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-
-/* Banner — home (building photo) */
+/* Banner — home (welcome text blending into photo carousel) */
 #banner.banner-home {
-  --welcome-gap: 1.45em;
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
+  --banner-bg: #2f2f2f;
   color: #fff;
-  min-height: 26em;
+  overflow: hidden;
+  background: var(--banner-bg);
+}
+
+.banner-split {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: var(--welcome-gap) 0 10em;
+  align-items: stretch;
+  min-height: 36em;
 }
 
-#banner.banner-home::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: linear-gradient(
-      rgba(35, 35, 35, 0.35),
-      rgba(35, 35, 35, 0.2) 45%,
-      rgba(35, 35, 35, 0.55)
-    ),
-    url("../../images/banner.png");
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  filter: url(#banner-sharpen) contrast(1.1) saturate(1.08);
-  transform: scale(1.03);
-  transform-origin: center center;
-}
-
-#banner.banner-home .banner-welcome-inner {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  text-align: center;
+.banner-text-box {
+  flex: 1 0 30%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: var(--welcome-gap);
+  text-align: center;
+  gap: 1.2em;
+  padding: 3em 0.5em 3em 3em;
+  box-sizing: border-box;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+}
+
+.banner-media {
+  position: relative;
+  /* Match the displayed image width (36em tall x 3:2 ratio) so the
+     blend gradient and carousel controls align with the photo itself */
+  flex: 0 1 54em;
+  overflow: hidden;
+  min-height: 16em;
+}
+
+.banner-carousel {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.banner-slide {
+  position: absolute;
+  inset: 0;
+  /* Natural aspect ratio, flush right; left side blends into the banner */
+  background-position: right center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.banner-slide.active {
+  opacity: 1;
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      to right,
+      var(--banner-bg, #2f2f2f) 0%,
+      rgba(47, 47, 47, 0) 40%
+    ),
+    linear-gradient(rgba(35, 35, 35, 0) 75%, rgba(35, 35, 35, 0.3));
+  pointer-events: none;
+}
+
+.banner-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 2.4em;
+  height: 2.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: rgba(35, 35, 35, 0.45);
+  color: #fff;
+  font-size: 1.1em;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.banner-arrow:hover {
+  background: rgba(35, 35, 35, 0.75);
+}
+
+.banner-arrow-prev {
+  left: 0.75em;
+}
+
+.banner-arrow-next {
+  right: 0.75em;
+}
+
+.banner-dots {
+  position: absolute;
+  bottom: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 0.6em;
+}
+
+.banner-dot {
+  width: 0.7em;
+  height: 0.7em;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.banner-dot:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.banner-dot.active {
+  background: #fff;
+  transform: scale(1.2);
 }
 
 #banner.banner-home .banner-welcome-title {
-  font-size: 2.75em;
+  font-size: 2.5em;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.06em;
   text-transform: none;
   margin: 0;
   color: #fff;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 #banner.banner-home .banner-welcome-body {
-  font-size: 1.35em;
+  font-size: 1.2em;
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.6;
   letter-spacing: 0.02em;
-  max-width: 36em;
-  margin: -0.4em 0 0;
-  color: #fff;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  /* Wraps the sentence onto ~3 lines */
+  max-width: 22em;
+  color: rgba(255, 255, 255, 0.92);
 }
 
 /* Banner — other pages (no image) */
@@ -475,18 +558,41 @@ p { margin: 0 0 1.5em 0; }
     font-size: 0.62em;
     max-width: 14em;
   }
-  #banner.banner-home {
-    --welcome-gap: 1.15em;
-    padding: var(--welcome-gap) 0 7em;
-    min-height: 18em;
+  .banner-split {
+    flex-direction: column;
+    min-height: 0;
+  }
+  .banner-text-box {
+    flex: none;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 2em 1.5em;
+  }
+  .banner-media {
+    flex: none;
+    width: 100%;
+    min-height: 0;
+    height: 18em;
+  }
+  .banner-slide {
+    background-position: center center;
+    background-size: contain;
+  }
+  .banner-overlay {
+    background:
+      linear-gradient(
+        to bottom,
+        var(--banner-bg, #2f2f2f) 0%,
+        rgba(47, 47, 47, 0) 40%
+      ),
+      linear-gradient(rgba(35, 35, 35, 0) 75%, rgba(35, 35, 35, 0.3));
   }
   #banner.banner-home .banner-welcome-title {
     font-size: 2em;
   }
   #banner.banner-home .banner-welcome-body {
     font-size: 1.1em;
-    max-width: none;
-    padding: 0 0.5em;
   }
   #banner.banner-page h1 {
     font-size: 1.45em;

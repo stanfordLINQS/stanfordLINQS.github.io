@@ -11,16 +11,6 @@
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body>
-    <svg class="svg-filters" aria-hidden="true" focusable="false">
-      <filter id="banner-sharpen" color-interpolation-filters="sRGB">
-        <feConvolveMatrix
-          order="3"
-          kernelMatrix="0 -0.35 0 -0.35 2.4 -0.35 0 -0.35 0"
-          preserveAlpha="true"
-        />
-      </filter>
-    </svg>
-
     <!-- Header -->
     <header id="header">
       <div class="inner">
@@ -52,14 +42,18 @@
       <a href="contact.html">Contact Us</a>
     </nav>
 
-    <!-- Banner (building photo — home page only) -->
+    <!-- Banner (welcome box + photo carousel — home page only) -->
     <section id="banner" class="banner-home">
-      <div class="inner banner-welcome-inner">
-        <p class="banner-welcome-title">WELCOME!</p>
-        <p class="banner-welcome-body">
-          We are scientists and engineers working at the intersection of applied
-          physics, photonics, quantum technologies, and nanofabrication
-        </p>
+      <div class="banner-split">
+        <div class="banner-text-box">
+          <p class="banner-welcome-title">WELCOME!</p>
+          <p class="banner-welcome-body">
+            We are scientists and engineers working at the intersection of
+            applied physics, photonics, quantum technologies, and
+            nanofabrication
+          </p>
+        </div>
+        <div class="banner-media"></div>
       </div>
     </section>
 
@@ -145,6 +139,8 @@
       </div>
     </section>
 
+    <script src="assets/js/carousel-config.js"></script>
+    <script src="assets/js/carousel.js"></script>
     <script src="assets/js/main.js"></script>
   </body>
 </html>
