@@ -10,6 +10,9 @@ window.PEOPLE_CONFIG = {
   // Use PHOTOS only to override that convention, e.g. { "Some Name": "file.jpg" }.
   PHOTOS: {},
 
+  // Bump when local photos change so browsers fetch the updated files.
+  PHOTO_VERSION: "11",
+
   SECTION_ORDER: [
     "Principal Investigator",
     "Postdoctoral Researchers",

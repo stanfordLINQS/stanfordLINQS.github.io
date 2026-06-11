@@ -345,6 +345,14 @@ p { margin: 0 0 1.5em 0; }
   color: #ccc;
 }
 
+/* Page title shown in the content area (outside the gray banner) */
+.page-title {
+  color: #8c1515; /* Stanford Cardinal red */
+  font-size: 2.5em;
+  font-weight: 600;
+  margin: 0 0 0.75em;
+}
+
 /* People page */
 #people-content {
   padding: 2.5em 0 4em;
@@ -380,6 +388,29 @@ p { margin: 0 0 1.5em 0; }
 
 .person-card {
   line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.person-body {
+  text-align: center;
+  width: 100%;
+  max-width: 280px;
+}
+
+.person-photo-link {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  margin-bottom: 0.85em;
+  border: none;
+  transition: opacity 0.15s ease;
+}
+
+.person-photo-link:hover {
+  border: none;
+  opacity: 0.88;
 }
 
 .person-photo {
@@ -390,7 +421,7 @@ p { margin: 0 0 1.5em 0; }
   object-fit: cover;
   object-position: center top;
   display: block;
-  margin-bottom: 0.85em;
+  margin-bottom: 0;
   border-radius: 4px;
   background: #eee;
 }
@@ -412,6 +443,22 @@ p { margin: 0 0 1.5em 0; }
   color: #333;
 }
 
+.person-name a {
+  color: var(--stanford-red);
+  border-bottom: dotted 1px;
+}
+
+.person-name a:hover {
+  color: var(--stanford-red-dark);
+  border-bottom-color: transparent;
+}
+
+.person-title {
+  margin: 0;
+  font-size: 0.95em;
+  color: #555;
+}
+
 .person-detail {
   margin: 0 0 0.25em;
   font-size: 0.95em;
@@ -426,6 +473,179 @@ p { margin: 0 0 1.5em 0; }
 
 .person-email:hover {
   border: none;
+}
+
+/* Individual profile page */
+#person-content {
+  padding: 2.5em 0 4em;
+}
+
+.person-back {
+  margin: 0 0 1.5em;
+}
+
+.person-back a {
+  color: #666;
+  font-size: 0.95em;
+  border: none;
+}
+
+.person-back a:hover {
+  color: var(--stanford-red);
+  border: none;
+}
+
+.person-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.75em;
+  margin-bottom: 2.5em;
+}
+
+.person-profile-photo {
+  width: 9.5em;
+  height: 9.5em;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  flex-shrink: 0;
+  background: #eee;
+}
+
+.person-profile-name {
+  margin: 0;
+  font-size: 2.25em;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.15;
+}
+
+.person-profile-pronouns {
+  margin: 0.4em 0 0;
+  font-size: 1em;
+  font-weight: 400;
+  color: #555;
+}
+
+.person-profile-identity {
+  min-width: 0;
+}
+
+.person-profile-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(16em, 1fr);
+  gap: 3em 4em;
+  align-items: start;
+}
+
+.person-profile-main {
+  min-width: 0;
+}
+
+.person-profile-section {
+  margin-bottom: 2em;
+}
+
+.person-profile-section h2 {
+  font-size: 1.35em;
+  font-weight: 700;
+  margin: 0 0 0.75em;
+  color: #222;
+}
+
+.person-profile-section p {
+  margin: 0 0 1em;
+  line-height: 1.65;
+  color: #444;
+}
+
+.person-profile-list {
+  margin: 0;
+  padding-left: 1.25em;
+  line-height: 1.65;
+  color: #444;
+}
+
+.person-profile-list li {
+  margin-bottom: 0.35em;
+}
+
+.person-research-list {
+  list-style: disc;
+}
+
+.person-profile-sidebar {
+  min-width: 0;
+}
+
+.person-sidebar-section {
+  margin-bottom: 2em;
+  padding-top: 1.5em;
+  border-top: 1px solid #ddd;
+}
+
+.person-sidebar-section:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.person-sidebar-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0 0 0.85em;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #222;
+}
+
+.person-sidebar-icon {
+  width: 1.05em;
+  height: 1.05em;
+  flex-shrink: 0;
+  color: #222;
+}
+
+.person-sidebar-section p {
+  margin: 0 0 0.5em;
+  line-height: 1.55;
+  color: #444;
+}
+
+.person-sidebar-label {
+  font-weight: 600;
+  margin-right: 0.35em;
+}
+
+.person-link-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.person-link-list li {
+  margin-bottom: 0.45em;
+}
+
+.person-link-list a {
+  border: none;
+}
+
+.person-inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border: none;
+}
+
+.person-inline-link:hover {
+  border: none;
+}
+
+.person-inline-icon {
+  width: 0.9em;
+  height: 0.9em;
+  flex-shrink: 0;
 }
 
 /* Main content */
@@ -472,7 +692,7 @@ p { margin: 0 0 1.5em 0; }
   margin-bottom: 0.75em;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #555;
+  color: #333;
   text-align: center;
 }
 
@@ -611,6 +831,9 @@ p { margin: 0 0 1.5em 0; }
   #banner.banner-page h1 {
     font-size: 1.45em;
   }
+  .page-title {
+    font-size: 2em;
+  }
   .summary-panels {
     flex-direction: column;
     align-items: center;
@@ -626,5 +849,17 @@ p { margin: 0 0 1.5em 0; }
   }
   .person-photo {
     max-width: 100%;
+  }
+  .person-profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25em;
+  }
+  .person-profile-name {
+    font-size: 1.75em;
+  }
+  .person-profile-layout {
+    grid-template-columns: 1fr;
+    gap: 2em;
   }
 }
