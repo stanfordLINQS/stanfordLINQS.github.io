@@ -508,24 +508,16 @@ p { margin: 0 0 1.5em 0; }
 .funding-logos {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25em;
+  gap: 2em;
   align-items: center;
-  margin-top: 1em;
+  margin-top: 1.25em;
 }
 
-.funding-logos .logo-placeholder {
-  width: 100px;
-  height: 70px;
-  background: #eee;
-  border: 1px dashed #ccc;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65em;
-  color: #888;
-  text-align: center;
-  padding: 0.25em;
+.funding-logos img {
+  height: 64px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
 }
 
 #footer {
