@@ -30,12 +30,16 @@
     "affiliated researchers": "Affiliated Researchers",
   };
 
+  // Extensions tried (in order) for photos named after the person in images/people/.
+  const PHOTO_EXTS = ["png", "jpg", "jpeg", "webp"];
+
   init();
 
   function init() {
     if (!SHEET_ID) {
       return showStatus("Missing SHEET_ID in people-config.js.", true);
     }
+    els.sections.addEventListener("error", onPhotoError, true);
     load();
   }
 
@@ -195,6 +199,44 @@
     return `images/people/${raw.replace(/^\.?\//, "")}`;
   }
 
+  function slugify(name) {
+    return String(name)
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  // If the sheet/config gives no photo, look for images/people/<name-slug>.<ext>.
+  function photoCandidates(person) {
+    if (person.photo) return [person.photo];
+    const slug = slugify(person.name);
+    if (!slug) return [];
+    return PHOTO_EXTS.map((ext) => `images/people/${slug}.${ext}`);
+  }
+
+  function onPhotoError(e) {
+    const img = e.target;
+    if (!(img instanceof HTMLImageElement) || !img.classList.contains("person-photo")) return;
+    const rest = (img.dataset.fallbacks || "").split("|").filter(Boolean);
+    if (rest.length) {
+      img.dataset.fallbacks = rest.slice(1).join("|");
+      img.src = rest[0];
+    } else {
+      img.replaceWith(placeholderEl(img.dataset.name || ""));
+    }
+  }
+
+  function placeholderEl(name) {
+    const div = document.createElement("div");
+    div.className = "person-photo person-photo-placeholder";
+    div.setAttribute("aria-hidden", "true");
+    div.textContent = initials(name);
+    return div;
+  }
+
   function extractDriveId(url) {
     const m = String(url).match(/\/d\/([a-zA-Z0-9_-]+)|[?&]id=([a-zA-Z0-9_-]+)/);
     return m ? m[1] || m[2] : "";
@@ -235,8 +277,9 @@
   }
 
   function personCard(person) {
-    const photo = person.photo
-      ? `<img class="person-photo" src="${escapeAttr(person.photo)}" alt="" loading="lazy" />`
+    const candidates = photoCandidates(person);
+    const photo = candidates.length
+      ? `<img class="person-photo" src="${escapeAttr(candidates[0])}" data-fallbacks="${escapeAttr(candidates.slice(1).join("|"))}" data-name="${escapeAttr(person.name)}" alt="" loading="lazy" />`
       : `<div class="person-photo person-photo-placeholder" aria-hidden="true">${escapeHtml(initials(person.name))}</div>`;
 
     const email = person.email
