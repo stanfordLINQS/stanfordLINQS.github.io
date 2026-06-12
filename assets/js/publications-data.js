@@ -19,6 +19,7 @@ window.PUBLICATIONS = [
   },
   {
     year: 2026,
+    figure: "images/publications/2026_Multani.png",
     authors: "K.K.S. Multani, J.F. Herrmann, E.A. Nanni, A.H. Safavi-Naeini",
     title: "Integrated millimeter-wave cavity electro-optic transduction",
     journal: "Nature Communications",
@@ -29,11 +30,14 @@ window.PUBLICATIONS = [
   },
   {
     year: 2026,
+    figure: "images/publications/2026_Yuksel.png",
     authors:
       "M. Yuksel, M.P. Maksymowych, O.A. Hitchcock, F.M. Mayor, N.R. Lee, W. Jiang, M.L. Roukes, A.H. Safavi-Naeini",
     title: "Intrinsic phononic dressed states in a nanomechanical system",
     journal: "Nature Physics",
     yearLabel: 2026,
+    doi: "10.1038/s41567-026-03225-3",
+    arxiv: "2502.18587",
   },
   {
     year: 2026,
@@ -43,6 +47,8 @@ window.PUBLICATIONS = [
     volume: "128",
     issue: "14",
     yearLabel: 2026,
+    doi: "10.1063/5.0313577",
+    arxiv: "2511.19432",
   },
   {
     year: 2026,
