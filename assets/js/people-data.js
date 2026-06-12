@@ -20,6 +20,9 @@
     "undergraduate student researchers": "Undergraduate Student Researchers",
     "undergraduate student researcher": "Undergraduate Student Researchers",
     "undergraduate researchers": "Undergraduate Student Researchers",
+    administration: "Administration",
+    administrative: "Administration",
+    "administrative staff": "Administration",
     alumni: "Alumni",
     "affiliated researchers": "Affiliated Researchers",
   };
@@ -36,7 +39,7 @@
     if (!key) return false;
     if (SECTION_ALIASES[key]) return true;
     if (SECTION_ORDER.map((s) => sectionKey(s)).includes(key)) return true;
-    return /investigator|researchers?|students?|alumni|affiliated/i.test(text);
+    return /investigator|researchers?|students?|administration|administrative|alumni|affiliated/i.test(text);
   }
 
   function normalizeSection(raw) {

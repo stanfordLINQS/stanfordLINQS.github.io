@@ -657,6 +657,160 @@ p { margin: 0 0 1.5em 0; }
   font-weight: 600;
 }
 
+#research-area-content {
+  padding: 2.5em 0 4em;
+}
+
+.research-back-link {
+  margin: 0 0 1.25em;
+}
+
+.research-back-link a {
+  color: #666;
+  font-weight: 500;
+}
+
+.research-back-link a:hover {
+  color: var(--stanford-red);
+}
+
+.research-project-group {
+  margin-bottom: 3em;
+}
+
+.research-project-group h2 {
+  font-weight: 600;
+  font-size: 1.5em;
+  margin: 0 0 1.25em;
+  padding-bottom: 0.35em;
+  border-bottom: 2px solid #eee;
+}
+
+.research-panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3em;
+  width: 100%;
+  max-width: 50em;
+  margin: 1.5em auto 0;
+  /* Tuned to research photo sizes: 778×1024, 1024×768, 1024×863, 1024×768 */
+  --research-panel-ratio: 1 / 1;
+}
+
+.research-panels .summary-panel {
+  flex: none;
+  max-width: none;
+  width: auto;
+}
+
+.research-panel {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  aspect-ratio: var(--research-panel-ratio);
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+  background-color: #1a1a1a;
+  border-top: none;
+}
+
+.research-panel-media {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#nonlinear-optics .research-panel-media {
+  background-image: url("../../images/research/nonlinear-optics.png");
+}
+
+#transduction .research-panel-media {
+  background-image: url("../../images/research/transduction.png");
+}
+
+#acoustics .research-panel-media {
+  background-image: url("../../images/research/acoustics.png");
+}
+
+#superconducting-circuits .research-panel-media {
+  background-image: url("../../images/research/superconducting-circuits.png");
+}
+
+.research-panel-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1em 1.25em;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px) saturate(1.15);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.research-panel-media,
+.research-panel-label,
+.research-panel-cta {
+  pointer-events: none;
+}
+
+.research-panel-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.research-panel-cta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 0.9em 1.25em;
+  background: rgba(140, 21, 21, 0.92);
+  color: #fff;
+  font-family: var(--site-font);
+  font-size: 0.95em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.28s ease;
+}
+
+.research-panel-link:hover .research-panel-cta,
+.research-panel-link:focus-visible .research-panel-cta {
+  transform: translateY(0);
+}
+
+.research-panel-link:focus-visible {
+  outline: 2px solid var(--stanford-red);
+  outline-offset: 3px;
+}
+
+.research-panel .research-panel-label h3 {
+  margin: 0;
+  text-transform: none;
+  letter-spacing: 0.03em;
+  font-size: 1.3em;
+  line-height: 1.35;
+  font-weight: 600;
+  text-align: left;
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
 .summary-panels {
   display: flex;
   justify-content: space-between;
@@ -723,6 +877,19 @@ p { margin: 0 0 1.5em 0; }
   background: var(--stanford-red);
   color: #fff;
   border-color: var(--stanford-red);
+}
+
+.research-panel.summary-panel {
+  padding: 0;
+  background-color: #1a1a1a;
+  border-top: none;
+  min-height: 0;
+  display: block;
+}
+
+.research-panel.summary-panel:hover,
+.research-panel-link:hover {
+  transform: translateY(-5px);
 }
 
 .funding-logos {
@@ -843,6 +1010,13 @@ p { margin: 0 0 1.5em 0; }
     max-width: 20em;
     min-height: auto;
     width: 100%;
+  }
+  .research-panels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .research-panels .summary-panel {
+    max-width: none;
+    width: auto;
   }
   .people-grid {
     grid-template-columns: 1fr;
