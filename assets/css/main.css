@@ -182,14 +182,14 @@ p { margin: 0 0 1.5em 0; }
 }
 
 .banner-text-box {
-  flex: 1 0 30%;
+  flex: 0 0 25%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 1.2em;
-  padding: 3em 0.5em 3em 3em;
+  gap: 1em;
+  padding: 2.5em 1em 2.5em 2em;
   box-sizing: border-box;
   color: #fff;
   position: relative;
@@ -198,9 +198,7 @@ p { margin: 0 0 1.5em 0; }
 
 .banner-media {
   position: relative;
-  /* Match the displayed image width (36em tall x 3:2 ratio) so the
-     blend gradient and carousel controls align with the photo itself */
-  flex: 0 1 54em;
+  flex: 1 1 75%;
   overflow: hidden;
   min-height: 16em;
 }
@@ -214,9 +212,9 @@ p { margin: 0 0 1.5em 0; }
 .banner-slide {
   position: absolute;
   inset: 0;
-  /* Natural aspect ratio, flush right; left side blends into the banner */
+  /* Fill the pane so the left-edge blend always lands on the photo */
   background-position: right center;
-  background-size: auto 100%;
+  background-size: cover;
   background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 1.2s ease-in-out;
@@ -313,13 +311,12 @@ p { margin: 0 0 1.5em 0; }
 }
 
 #banner.banner-home .banner-welcome-body {
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.55;
   letter-spacing: 0.02em;
   margin: 0;
-  /* Wraps the sentence onto ~3 lines */
-  max-width: 22em;
+  max-width: 100%;
   color: rgba(255, 255, 255, 0.92);
 }
 
@@ -346,16 +343,103 @@ p { margin: 0 0 1.5em 0; }
 }
 
 /* Page title shown in the content area (outside the gray banner) */
-.page-title {
-  color: #8c1515; /* Stanford Cardinal red */
+h1.page-title {
+  color: var(--stanford-red);
   font-size: 2.5em;
   font-weight: 600;
+  line-height: 1.5;
   margin: 0 0 0.75em;
 }
 
-/* People page */
-#people-content {
+/* Main content pages (People, Research, Publications, …) */
+#people-content,
+#research_summary,
+#research-area-content {
   padding: 2.5em 0 4em;
+}
+
+/* Publications page (McMahon-style layout) */
+
+.publications-year-heading {
+  font-weight: 600;
+  font-size: 1.75em;
+  color: var(--stanford-red);
+  margin: 0 0 0.75em;
+}
+
+.publication-block {
+  font-size: 12pt;
+  line-height: 1.5;
+  margin-bottom: 1.75em;
+}
+
+.publication-block.has-figure {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  column-gap: 1.5em;
+  align-items: start;
+}
+
+.publication-figure {
+  display: block;
+  width: 150px;
+  max-width: 100%;
+  height: auto;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.publication-text {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.publication-title {
+  font-weight: 700;
+}
+
+.publication-journal {
+  font-weight: 700;
+  color: var(--stanford-red);
+}
+
+.publication-text a {
+  color: var(--stanford-red);
+  font-weight: 700;
+}
+
+.publication-text a:hover {
+  color: var(--stanford-red-dark);
+  border-bottom-color: transparent;
+}
+
+.publication-link-sep {
+  color: #999;
+  margin: 0 0.15em;
+}
+
+.publications-status {
+  color: #666;
+}
+
+/* People page */
+.people-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 40em;
+  margin: 0 auto 2.5em;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.people-carousel .banner-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 
 .people-status {
@@ -649,16 +733,8 @@ p { margin: 0 0 1.5em 0; }
 }
 
 /* Main content */
-#research_summary {
-  padding: 2em 0 4em;
-}
-
 #research_summary h3 {
   font-weight: 600;
-}
-
-#research-area-content {
-  padding: 2.5em 0 4em;
 }
 
 .research-back-link {
@@ -684,6 +760,33 @@ p { margin: 0 0 1.5em 0; }
   margin: 0 0 1.25em;
   padding-bottom: 0.35em;
   border-bottom: 2px solid #eee;
+}
+
+.research-project-body.has-figure::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.research-project-figure {
+  float: right;
+  width: min(62%, 680px);
+  margin: 0.15em 0 1em 2em;
+}
+
+.research-project-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#nanomechanical-mass-sensing .research-project-figure {
+  width: min(32%, 210px);
+}
+
+.research-project-text p {
+  margin: 0;
+  line-height: 1.65;
 }
 
 .research-panels {
@@ -978,7 +1081,7 @@ p { margin: 0 0 1.5em 0; }
   }
   .banner-slide {
     background-position: center center;
-    background-size: contain;
+    background-size: cover;
   }
   .banner-overlay {
     background:
@@ -998,7 +1101,7 @@ p { margin: 0 0 1.5em 0; }
   #banner.banner-page h1 {
     font-size: 1.45em;
   }
-  .page-title {
+  h1.page-title {
     font-size: 2em;
   }
   .summary-panels {
@@ -1020,6 +1123,25 @@ p { margin: 0 0 1.5em 0; }
   }
   .people-grid {
     grid-template-columns: 1fr;
+  }
+  .publication-block.has-figure {
+    grid-template-columns: 1fr;
+    row-gap: 0.75em;
+  }
+
+  .research-project-figure {
+    float: none;
+    width: 100%;
+    max-width: none;
+    margin: 0 0 1em;
+  }
+
+  .publication-figure {
+    width: 150px;
+  }
+
+  .publication-text {
+    grid-column: 1;
   }
   .person-photo {
     max-width: 100%;

@@ -34,11 +34,17 @@
       .replace(/\s+/g, " ");
   }
 
-  function isSectionLabel(text) {
+  function isKnownSectionName(text) {
     const key = sectionKey(text);
     if (!key) return false;
     if (SECTION_ALIASES[key]) return true;
-    if (SECTION_ORDER.map((s) => sectionKey(s)).includes(key)) return true;
+    return SECTION_ORDER.map((s) => sectionKey(s)).includes(key);
+  }
+
+  function isSectionLabel(text) {
+    const key = sectionKey(text);
+    if (!key) return false;
+    if (isKnownSectionName(text)) return true;
     return /investigator|researchers?|students?|administration|administrative|alumni|affiliated/i.test(text);
   }
 
@@ -79,7 +85,7 @@
     const detail = sectionKey(value);
     const heading = sectionKey(section);
     if (!detail || !heading) return false;
-    if (isSectionLabel(value)) return true;
+    if (isKnownSectionName(value)) return true;
     if (detail === heading) return true;
     if (detail === heading.replace(/s$/, "")) return true;
     if (heading === detail.replace(/s$/, "")) return true;

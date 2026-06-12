@@ -14,5 +14,9 @@ window.CAROUSEL_CONFIG = {
     "images/carousel/stanford-chip.png",
     "images/carousel/laser-chip-lab.png",
     "images/carousel/quac-chip.png",
+    "images/carousel/lnod.png",
+    "images/carousel/3d-cavity-fiber.png",
+    "images/carousel/ln2g03-ntnar.png",
+    "images/carousel/1d-transducer.png",
   ],
 };

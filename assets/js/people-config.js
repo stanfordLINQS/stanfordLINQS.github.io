@@ -11,7 +11,7 @@ window.PEOPLE_CONFIG = {
   PHOTOS: {},
 
   // Bump when local photos change so browsers fetch the updated files.
-  PHOTO_VERSION: "17",
+  PHOTO_VERSION: "19",
 
   SECTION_ORDER: [
     "Principal Investigator",
