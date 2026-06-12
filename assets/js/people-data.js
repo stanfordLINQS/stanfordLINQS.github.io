@@ -4,7 +4,7 @@
 
   const COL_SECTION = 0;
   const COL_NAME = 1;
-  const PHOTO_EXTS = ["png", "jpg", "jpeg", "webp"];
+  const PHOTO_EXTS = ["jpg", "jpeg", "webp", "png"];
 
   const SECTION_ALIASES = {
     pi: "Principal Investigator",

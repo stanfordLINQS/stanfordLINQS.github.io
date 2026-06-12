@@ -11,12 +11,12 @@ window.PEOPLE_CONFIG = {
   PHOTOS: {},
 
   // Bump when local photos change so browsers fetch the updated files.
-  PHOTO_VERSION: "11",
+  PHOTO_VERSION: "16",
 
   SECTION_ORDER: [
     "Principal Investigator",
-    "Postdoctoral Researchers",
     "Graduate Student Researchers",
+    "Postdoctoral Researchers",
     "Undergraduate Student Researchers",
   ],
 };
