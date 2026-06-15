@@ -1,6 +1,6 @@
 (function () {
   const config = window.PEOPLE_CONFIG || {};
-  const { SHEET_ID, GID = "0", PHOTOS = {}, PHOTO_VERSION = "1", SECTION_ORDER = [] } = config;
+  const { SHEET_ID, GID = "0", PHOTOS = {}, PHOTO_POSITION = {}, PHOTO_VERSION = "1", SECTION_ORDER = [] } = config;
 
   const COL_SECTION = 0;
   const COL_NAME = 1;
@@ -109,20 +109,25 @@
     return `${url}${joiner}v=${encodeURIComponent(PHOTO_VERSION)}`;
   }
 
+  function drivePhotoUrl(fileId) {
+    // lh3 CDN embeds reliably on localhost and GitHub Pages (uc?export=view often does not).
+    return `https://lh3.googleusercontent.com/d/${fileId}=w800`;
+  }
+
   function resolvePhoto(value, name) {
     const fromConfig = PHOTOS[name];
-    const raw = (value || fromConfig || "").trim();
+    const raw = (fromConfig || value || "").trim();
     if (!raw) return "";
 
     const driveId = extractDriveId(raw);
     if (driveId) {
-      return `https://drive.google.com/uc?export=view&id=${driveId}`;
+      return drivePhotoUrl(driveId);
     }
 
     if (/^https?:\/\//i.test(raw)) return raw;
 
     if (/^[a-zA-Z0-9_-]{20,}$/.test(raw)) {
-      return `https://drive.google.com/uc?export=view&id=${raw}`;
+      return drivePhotoUrl(raw);
     }
 
     return cacheBust(`images/people/${raw.replace(/^\.?\//, "")}`);
@@ -139,10 +144,16 @@
   }
 
   function photoCandidates(person) {
-    if (person.photo) return [person.photo];
+    const candidates = [];
+    if (person.photo) candidates.push(person.photo);
     const slug = slugify(person.name);
-    if (!slug) return [];
-    return PHOTO_EXTS.map((ext) => cacheBust(`images/people/${slug}.${ext}`));
+    if (slug) {
+      for (const ext of PHOTO_EXTS) {
+        const local = cacheBust(`images/people/${slug}.${ext}`);
+        if (!candidates.includes(local)) candidates.push(local);
+      }
+    }
+    return candidates;
   }
 
   function initials(name) {
@@ -232,6 +243,7 @@
         education: col.education >= 0 ? values[col.education] : "",
         bio: col.bio >= 0 ? values[col.bio] : "",
         photo: resolvePhoto(col.photo >= 0 ? values[col.photo] : "", name),
+        photoPosition: PHOTO_POSITION[name] || "",
       };
 
       grouped.get(currentSection).push(person);

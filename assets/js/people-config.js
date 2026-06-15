@@ -1,17 +1,25 @@
 // Google Sheet: Share → Anyone with the link → Viewer (required for live load).
 // Layout: column A = section titles, column B = names (rows grouped under each section).
+//
+// Photos (auto-update from Drive, no git push needed):
+//   1. Add a column header "Photo" (also accepts Image, Picture, Photo URL).
+//   2. Paste a Drive link or file ID per person, e.g.
+//        https://drive.google.com/file/d/FILE_ID/view
+//   3. Share each photo (or the folder) as Anyone with the link → Viewer.
+//   4. To refresh a photo, replace the file in Drive at the same link.
+//   Run: python scripts/print-photo-links.py
+// Fallback: local files in images/people/ named slug-style (amir-safavi-naeini.jpg).
 window.PEOPLE_CONFIG = {
   SHEET_ID: "1_n6ESAo7j0tObCSQFPY_j0RkML58iE9ZlLDdSDOCNWk",
   GID: "0",
 
-  // Photos are picked up automatically from images/people/ when the file is
-  // named after the person's "Name" column, lowercased with hyphens
-  // (e.g. "Amir Safavi-Naeini" -> images/people/amir-safavi-naeini.png).
-  // Use PHOTOS only to override that convention, e.g. { "Some Name": "file.jpg" }.
-  PHOTOS: {},
+  // Overrides the spreadsheet Photo column when set (local filename or Drive link).
+  PHOTOS: {
+    "Linus Woodard": "linus-woodard.jpg",
+  },
 
-  // Bump when local photos change so browsers fetch the updated files.
-  PHOTO_VERSION: "20",
+  // Bump only when using local images/people/ files (ignored for Drive URLs).
+  PHOTO_VERSION: "23",
 
   SECTION_ORDER: [
     "Principal Investigator",

@@ -92,8 +92,11 @@
     const profileHref = escapeAttr(personUrl(person.slug));
     const profileLabel = escapeAttr(`View ${person.name}'s profile`);
     const candidates = photoCandidates(person);
+    const posStyle = person.photoPosition
+      ? ` style="object-position: ${escapeAttr(person.photoPosition)}"`
+      : "";
     const photoInner = candidates.length
-      ? `<img class="person-photo" src="${escapeAttr(candidates[0])}" data-fallbacks="${escapeAttr(candidates.slice(1).join("|"))}" data-name="${escapeAttr(person.name)}" alt="" loading="lazy" />`
+      ? `<img class="person-photo" src="${escapeAttr(candidates[0])}" data-slug="${escapeAttr(person.slug)}" data-fallbacks="${escapeAttr(candidates.slice(1).join("|"))}" data-name="${escapeAttr(person.name)}" alt="" loading="lazy"${posStyle} />`
       : `<span class="person-photo person-photo-placeholder" aria-hidden="true">${escapeHtml(initials(person.name))}</span>`;
     const photo = `<a class="person-photo-link" href="${profileHref}" aria-label="${profileLabel}">${photoInner}</a>`;
 
