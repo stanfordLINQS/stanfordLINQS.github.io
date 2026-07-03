@@ -1,11 +1,7 @@
-// Home banner carousel — loads images from the homepage photos spreadsheet.
+// Home banner carousel — loads from the homepage photos spreadsheet.
 // Share the sheet: Anyone with the link → Viewer.
 //
-// Spreadsheet: one Drive link per row (column A), or use section headers:
-//   Homepage Carousel
-//   https://drive.google.com/file/d/.../view
-//   Group Photos
-//   https://drive.google.com/file/d/.../view
+// Spreadsheet: one Drive link per row (column A).
 // https://docs.google.com/spreadsheets/d/1aqTRr1-2Qk1dvsK3BtES28VqOYmg8wcq7DqOhojrD1o/edit
 //
 // Fallback: local images listed in images[] below.
