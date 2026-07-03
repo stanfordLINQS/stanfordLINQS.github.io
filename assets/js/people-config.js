@@ -12,6 +12,7 @@
 window.PEOPLE_CONFIG = {
   SHEET_ID: "1_n6ESAo7j0tObCSQFPY_j0RkML58iE9ZlLDdSDOCNWk",
   GID: "0",
+  ALUMNI_SHEET: "Alumni",
 
   // Overrides the spreadsheet Photo column when set (local filename or Drive link).
   PHOTOS: {
@@ -27,5 +28,28 @@ window.PEOPLE_CONFIG = {
     "Postdoctoral Researchers",
     "Undergraduate Student Researchers",
     "Administration",
+    "Alumni",
   ],
+
+  // Stanford Digital Repository links for Ph.D. alumni theses.
+  THESIS_URLS: {
+    "Oguz Tolga Celik": "https://purl.stanford.edu/by529gb1292",
+    "Jason Herrmann": "https://purl.stanford.edu/ww291sc8380",
+    "Kevin Multani": "https://purl.stanford.edu/hj093bg3377",
+    "Felix Mayor": "https://purl.stanford.edu/xh170pj9200",
+    "Rachel Gruenke-Freudenstein": "https://purl.stanford.edu/fc402ss7669",
+    "Taha Rajabzadeh": "https://purl.stanford.edu/mn995cd0499",
+    "Hubert Stokowski": "https://purl.stanford.edu/ck196hh9286",
+    "Agnetta Cleland": "https://purl.stanford.edu/kx366nm3915",
+    "Nathan Lee": "https://purl.stanford.edu/kh905cd4067",
+    "Okan Atalar": "https://purl.stanford.edu/kh488xz0210",
+    "Wentao Jiang": "https://purl.stanford.edu/mx877vv9870",
+    "Alex Wollack": "https://purl.stanford.edu/mn697qq5667",
+    "Zhaoyou Wang": "https://purl.stanford.edu/cs964xk2965",
+    "Timothy McKenna": "https://purl.stanford.edu/kp746rx2589",
+    "Christopher Sarabalis": "https://purl.stanford.edu/bs011gx3793",
+    "Rishi Patel": "https://purl.stanford.edu/pq620kg9635",
+    "Jeremy Witmer": "https://purl.stanford.edu/cg725pt1482",
+    "Patricio Arrangoiz-Arriola": "https://purl.stanford.edu/hp858nr1426",
+  },
 };

@@ -1,6 +1,6 @@
 (function () {
   const config = window.PEOPLE_CONFIG || {};
-  const { SHEET_ID, GID = "0", PHOTOS = {}, PHOTO_POSITION = {}, PHOTO_VERSION = "1", SECTION_ORDER = [] } = config;
+  const { SHEET_ID, GID = "0", ALUMNI_SHEET = "", PHOTOS = {}, PHOTO_POSITION = {}, PHOTO_VERSION = "1", SECTION_ORDER = [], THESIS_URLS = {} } = config;
 
   const COL_SECTION = 0;
   const COL_NAME = 1;
@@ -253,13 +253,86 @@
     return { grouped, bySlug };
   }
 
-  async function loadPeople() {
-    if (!SHEET_ID) throw new Error("Missing SHEET_ID in people-config.js.");
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}`;
+  function parseAlumniGviz(text) {
+    const json = JSON.parse(text.replace(/^[^(]*\(/, "").replace(/\);?\s*$/, ""));
+    const rows = json.table.rows;
+    const alumni = [];
+    let currentGroup = "";
+
+    for (const row of rows) {
+      const values = row.c.map((cell) => formatCell(cell));
+      while (values.length < 4) values.push("");
+
+      const groupCell = values[0] || "";
+      const name = values[1] || "";
+      const gradYear = values[2] || "";
+      const currentJob = values[3] || "";
+
+      if (!values.some(Boolean)) continue;
+      if (name.toLowerCase() === "name") continue;
+
+      if (groupCell && isSectionLabel(groupCell)) {
+        currentGroup = normalizeSection(groupCell);
+        if (!name || isSectionLabel(name)) continue;
+      }
+
+      if (!name || isSectionLabel(name)) continue;
+
+      alumni.push({
+        name,
+        slug: slugify(name),
+        section: "Alumni",
+        alumniGroup: currentGroup,
+        gradYear,
+        currentJob,
+        thesisUrl: THESIS_URLS[name] || "",
+        title: "",
+        pronouns: "",
+        email: "",
+        phone: "",
+        mailCode: "",
+        location: "",
+        personalWebsite: "",
+        googleScholar: "",
+        linkedin: "",
+        twitter: "",
+        researchAreas: "",
+        education: "",
+        bio: "",
+        photo: "",
+        photoPosition: "",
+        isAlumni: true,
+      });
+    }
+
+    return alumni;
+  }
+
+  async function fetchSheetGviz({ gid, sheet } = {}) {
+    const param = sheet
+      ? `sheet=${encodeURIComponent(sheet)}`
+      : `gid=${encodeURIComponent(gid ?? GID)}`;
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&${param}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
-    return parseGviz(text);
+    return res.text();
+  }
+
+  async function loadPeople() {
+    if (!SHEET_ID) throw new Error("Missing SHEET_ID in people-config.js.");
+
+    const requests = [fetchSheetGviz({ gid: GID })];
+    if (ALUMNI_SHEET) requests.push(fetchSheetGviz({ sheet: ALUMNI_SHEET }));
+
+    const [mainText, alumniText] = await Promise.all(requests);
+    const { grouped, bySlug } = parseGviz(mainText);
+
+    if (alumniText) {
+      const alumni = parseAlumniGviz(alumniText);
+      if (alumni.length) grouped.set("Alumni", alumni);
+    }
+
+    return { grouped, bySlug };
   }
 
   function personUrl(slug) {

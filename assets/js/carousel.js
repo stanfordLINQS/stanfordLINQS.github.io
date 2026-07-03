@@ -1,25 +1,56 @@
-function normalizeCarouselImages(images) {
+function applyCarouselOverrides(item, config) {
+  const cfg = config || window.CAROUSEL_CONFIG || {};
+  const driveId = extractCarouselDriveId(item.url);
+  if (driveId && cfg.imageOverrides?.[driveId]) {
+    return { ...item, ...cfg.imageOverrides[driveId] };
+  }
+  return item;
+}
+
+function normalizeCarouselImages(images, config) {
   return images
     .map((item) => {
       if (typeof item === "string") {
-        const url = item.trim();
+        const url = resolveCarouselUrl(item);
         return url ? { url, objectPosition: "center center" } : null;
       }
       if (item && item.driveId) {
         return {
-          url: `https://drive.google.com/uc?export=view&id=${item.driveId}`,
+          url: `https://lh3.googleusercontent.com/d/${item.driveId}=w1200`,
           objectPosition: item.objectPosition || "center center",
         };
       }
       if (item && (item.src || item.url)) {
-        const url = String(item.src || item.url).trim();
+        const url = resolveCarouselUrl(String(item.src || item.url));
         return url
           ? { url, objectPosition: item.objectPosition || "center center" }
           : null;
       }
       return null;
     })
-    .filter(Boolean);
+    .filter(Boolean)
+    .map((item) => applyCarouselOverrides(item, config));
+}
+
+function extractCarouselDriveId(value) {
+  const m = String(value).match(/\/d\/([a-zA-Z0-9_-]+)|[?&]id=([a-zA-Z0-9_-]+)/);
+  return m ? m[1] || m[2] : "";
+}
+
+function resolveCarouselUrl(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+
+  const driveId = extractCarouselDriveId(raw);
+  if (driveId) return `https://lh3.googleusercontent.com/d/${driveId}=w1200`;
+
+  if (/^https?:\/\//i.test(raw)) return raw;
+
+  if (/^[a-zA-Z0-9_-]{20,}$/.test(raw)) {
+    return `https://lh3.googleusercontent.com/d/${raw}=w1200`;
+  }
+
+  return raw;
 }
 
 function resolveImageUrls(images) {
@@ -40,7 +71,7 @@ function initImageCarousel(media, config, options) {
 
   const opts = options || {};
   const intervalMs = config.intervalMs || 6000;
-  let items = normalizeCarouselImages(config.images || []);
+  let items = normalizeCarouselImages(config.images || [], config);
   if (config.shuffle) items = shuffleArray(items);
   if (!items.length) return;
 
@@ -68,6 +99,7 @@ function initImageCarousel(media, config, options) {
       slide.appendChild(img);
     } else {
       slide.style.backgroundImage = `url("${item.url}")`;
+      slide.style.backgroundPosition = item.objectPosition || "center center";
     }
     carousel.appendChild(slide);
   });
@@ -176,15 +208,49 @@ function initImageCarousel(media, config, options) {
   const banner = document.querySelector("#banner.banner-home");
   if (!banner) return;
   const media = banner.querySelector(".banner-media");
-  const config = window.CAROUSEL_CONFIG || {};
-  const urls = resolveImageUrls(config.images || []);
-  initImageCarousel(media, { ...config, images: urls.length ? config.images : ["images/banner.png"] }, {
-    overlay: true,
-  });
+  if (!media) return;
+
+  initHomeCarousel(media);
 })();
+
+async function initHomeCarousel(media) {
+  const config = window.CAROUSEL_CONFIG || {};
+  const loadCarouselImages = window.CAROUSEL_DATA?.loadCarouselImages;
+  let images = [];
+
+  if (loadCarouselImages) {
+    try {
+      images = await loadCarouselImages(config);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  if (!images.length) images = config.images || [];
+
+  initImageCarousel(media, { ...config, images }, { overlay: true });
+}
 
 (function () {
   const media = document.getElementById("people-carousel");
   if (!media) return;
-  initImageCarousel(media, window.PEOPLE_CAROUSEL_CONFIG || {}, { fixedFrame: true });
+  initPeopleCarousel(media);
 })();
+
+async function initPeopleCarousel(media) {
+  const config = window.PEOPLE_CAROUSEL_CONFIG || {};
+  const loadCarouselImages = window.CAROUSEL_DATA?.loadCarouselImages;
+  let images = [];
+
+  if (loadCarouselImages) {
+    try {
+      images = await loadCarouselImages(config);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  if (!images.length) images = config.images || [];
+
+  initImageCarousel(media, { ...config, images }, { fixedFrame: true });
+}

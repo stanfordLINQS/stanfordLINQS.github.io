@@ -212,8 +212,7 @@ p { margin: 0 0 1.5em 0; }
 .banner-slide {
   position: absolute;
   inset: 0;
-  /* Fill the pane so the left-edge blend always lands on the photo */
-  background-position: right center;
+  background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 0;
@@ -354,7 +353,8 @@ h1.page-title {
 /* Main content pages (People, Research, Publications, …) */
 #people-content,
 #research_summary,
-#research-area-content {
+#research-area-content,
+#contact-content {
   padding: 2.5em 0 4em;
 }
 
@@ -464,6 +464,78 @@ h1.page-title {
   border-bottom: 2px solid #eee;
 }
 
+.people-group--alumni h3 {
+  margin-bottom: 1.75em;
+}
+
+.people-group--alumni .alumni-group + .alumni-group {
+  margin-top: 2.75em;
+  padding-top: 0.25em;
+}
+
+.alumni-subgroup {
+  font-weight: 600;
+  font-size: 1.05em;
+  margin: 0 0 1em;
+  color: #333;
+  letter-spacing: 0.01em;
+}
+
+.alumni-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.alumni-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+  margin: 0 0 1.1em;
+  line-height: 1.5;
+}
+
+.alumni-name {
+  color: var(--stanford-red);
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.alumni-meta {
+  display: block;
+  color: #666;
+  font-size: 0.92em;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.alumni-sep {
+  margin: 0 0.45em;
+  color: #bbb;
+}
+
+.alumni-thesis {
+  color: #666;
+  border-bottom: dotted 1px #aaa;
+}
+
+.alumni-thesis:hover {
+  color: var(--stanford-red);
+  border-bottom-color: transparent;
+}
+
+@media (min-width: 52em) {
+  .alumni-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25em 3em;
+  }
+
+  .alumni-entry {
+    margin-bottom: 1em;
+  }
+}
+
 .people-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
@@ -559,6 +631,70 @@ h1.page-title {
   border: none;
 }
 
+/* Contact page */
+.contact-staff {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3em 4em;
+  margin-bottom: 3.5em;
+}
+
+.contact-staff-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contact-staff-member p {
+  margin: 0 0 0.35em;
+  line-height: 1.65;
+  color: #444;
+}
+
+.contact-heading {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin: 0 0 0.75em;
+  color: #222;
+}
+
+.contact-photo-link {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  margin-top: 1.25em;
+  border: none;
+  transition: opacity 0.15s ease;
+}
+
+.contact-photo-link:hover {
+  border: none;
+  opacity: 0.88;
+}
+
+.contact-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  border-radius: 4px;
+  background: #eee;
+}
+
+.contact-locations {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3em 4em;
+}
+
+.contact-location address {
+  font-style: normal;
+  line-height: 1.65;
+  color: #444;
+}
+
 /* Individual profile page */
 #person-content {
   padding: 2.5em 0 4em;
@@ -591,7 +727,7 @@ h1.page-title {
   height: 9.5em;
   border-radius: 50%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   flex-shrink: 0;
   background: #eee;
 }
@@ -1157,5 +1293,10 @@ h1.page-title {
   .person-profile-layout {
     grid-template-columns: 1fr;
     gap: 2em;
+  }
+  .contact-staff,
+  .contact-locations {
+    grid-template-columns: 1fr;
+    gap: 2.5em;
   }
 }

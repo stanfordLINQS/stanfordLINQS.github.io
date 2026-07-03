@@ -79,6 +79,10 @@
   }
 
   function sectionHtml(title, people) {
+    if (title === "Alumni") {
+      return alumniSectionHtml(people);
+    }
+
     return `
       <section class="people-group">
         <h3>${escapeHtml(title)}</h3>
@@ -86,6 +90,63 @@
           ${people.map(personCard).join("")}
         </div>
       </section>`;
+  }
+
+  function alumniSectionHtml(people) {
+    const blocks = [];
+    let currentGroup = null;
+    let entries = [];
+
+    function flushGroup() {
+      if (!entries.length) return;
+      blocks.push(`
+        <div class="alumni-group">
+          ${currentGroup ? `<h4 class="alumni-subgroup">${escapeHtml(currentGroup)}</h4>` : ""}
+          <ul class="alumni-list">
+            ${entries.join("")}
+          </ul>
+        </div>`);
+      entries = [];
+    }
+
+    for (const person of people) {
+      if (person.alumniGroup !== currentGroup) {
+        flushGroup();
+        currentGroup = person.alumniGroup;
+      }
+      entries.push(`<li class="alumni-entry">${alumniEntryHtml(person)}</li>`);
+    }
+    flushGroup();
+
+    return `
+      <section class="people-group people-group--alumni">
+        <h3>Alumni</h3>
+        ${blocks.join("")}
+      </section>`;
+  }
+
+  function alumniEntryHtml(person) {
+    const gradYear = String(person.gradYear || "").trim();
+    const job = String(person.currentJob || "").trim();
+    const showJob = job && job !== "-";
+    const thesisUrl = String(person.thesisUrl || "").trim();
+
+    const metaParts = [];
+    if (gradYear) metaParts.push(escapeHtml(gradYear));
+    if (thesisUrl) {
+      metaParts.push(
+        `<a class="alumni-thesis" href="${escapeAttr(thesisUrl)}" target="_blank" rel="noopener noreferrer">thesis</a>`
+      );
+    }
+    if (showJob) metaParts.push(escapeHtml(job));
+
+    const meta = metaParts.length
+      ? `<span class="alumni-meta">${metaParts.join('<span class="alumni-sep" aria-hidden="true">·</span>')}</span>`
+      : "";
+
+    return `
+      <strong class="alumni-name">${escapeHtml(person.name)}</strong>
+      ${meta}`;
   }
 
   function personCard(person) {
