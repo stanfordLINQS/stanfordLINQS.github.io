@@ -886,6 +886,19 @@ h1.page-title {
   color: var(--stanford-red);
 }
 
+.research-area-overview {
+  margin: 0 0 2.5em;
+}
+
+.research-area-overview p {
+  margin: 0 0 1em;
+  line-height: 1.65;
+}
+
+.research-area-overview p:last-child {
+  margin-bottom: 0;
+}
+
 .research-project-group {
   margin-bottom: 3em;
 }
