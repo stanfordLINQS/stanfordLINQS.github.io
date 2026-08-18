@@ -12,14 +12,13 @@ window.PEOPLE_CAROUSEL_CONFIG = {
   shuffle: true,
 
   imageOverrides: {
-    // Example: "DRIVE_FILE_ID": { objectPosition: "top center" },
+    "1ZGLvCOygBND3CRubnaRO0emFTY3bgLId": {
+      src: "images/people/carousel/group-mountain-summit-4x3.jpg",
+    },
   },
 
   images: [
-    {
-      src: "images/people/carousel/group-mountain-summit.jpg",
-      objectPosition: "top center",
-    },
+    "images/people/carousel/group-mountain-summit-4x3.jpg",
     "images/people/carousel/group-hiking.jpg",
     "images/people/carousel/group-terrace.jpg",
     "images/people/carousel/group-lawn.jpg",

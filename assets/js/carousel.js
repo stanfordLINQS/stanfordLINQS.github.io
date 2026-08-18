@@ -1,10 +1,14 @@
 function applyCarouselOverrides(item, config) {
   const cfg = config || window.CAROUSEL_CONFIG || {};
   const driveId = extractCarouselDriveId(item.url);
-  if (driveId && cfg.imageOverrides?.[driveId]) {
-    return { ...item, ...cfg.imageOverrides[driveId] };
+  const overrides = driveId && cfg.imageOverrides?.[driveId];
+  if (!overrides) return item;
+
+  const next = { ...item, ...overrides };
+  if (overrides.src || overrides.url) {
+    next.url = resolveCarouselUrl(String(overrides.src || overrides.url));
   }
-  return item;
+  return next;
 }
 
 function normalizeCarouselImages(images, config) {

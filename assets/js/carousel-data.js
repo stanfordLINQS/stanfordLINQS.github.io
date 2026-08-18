@@ -73,6 +73,10 @@
       };
       const overrides = imageOverrides[key];
       if (overrides) item = { ...item, ...overrides };
+      if (overrides && (overrides.src || overrides.url)) {
+        const replacement = resolvePhoto(overrides.src || overrides.url);
+        if (replacement) item.url = replacement;
+      }
       images.push(item);
     }
 
