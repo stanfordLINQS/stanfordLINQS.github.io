@@ -95,7 +95,7 @@
           >
             <div class="research-panel-media" aria-hidden="true"${imageStyle}></div>
             <div class="research-panel-label">
-              <h3>${escapeHtml(area.name)}</h3>
+              <h2>${escapeHtml(area.name)}</h2>
             </div>
             <div class="research-panel-cta">View Projects</div>
           </a>`;

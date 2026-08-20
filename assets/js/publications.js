@@ -22,20 +22,13 @@
 
   function yearSection(year, items) {
     return `
-      <h3 class="publications-year-heading">${escapeHtml(String(year))}</h3>
+      <h2 class="publications-year-heading">${escapeHtml(String(year))}</h2>
       ${items.map(publicationEntry).join("")}`;
   }
 
   function publicationEntry(pub) {
-    const figure = pub.figure
-      ? `<img class="publication-figure" src="${escapeAttr(pub.figure)}" width="150" alt="" loading="lazy" />`
-      : "";
-
-    const blockClass = pub.figure ? "publication-block has-figure" : "publication-block";
-
     return `
-      <div class="${blockClass}">
-        ${figure}
+      <div class="publication-block">
         <div class="publication-text">
           ${escapeHtml(pub.authors || "")}<br />
           <span class="publication-title">${escapeHtml(pub.title || "")}</span><br />

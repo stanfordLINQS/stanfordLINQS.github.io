@@ -29,6 +29,13 @@
         return showStatus("Person not found.", true);
       }
       document.title = `${person.name} — LINQS Lab`;
+      const desc = document.querySelector('meta[name="description"]');
+      if (desc) {
+        desc.setAttribute(
+          "content",
+          `${person.name} is a member of the Laboratory for Integrated Nano-Quantum Systems (LINQS) at Stanford University.`
+        );
+      }
       els.status.hidden = true;
       render(person);
     } catch (err) {
@@ -46,7 +53,7 @@
       ? ` style="object-position: ${escapeAttr(person.photoPosition)}"`
       : "";
     const photo = candidates.length
-      ? `<img class="person-profile-photo" src="${escapeAttr(candidates[0])}" data-slug="${escapeAttr(person.slug)}" data-fallbacks="${escapeAttr(candidates.slice(1).join("|"))}" data-name="${escapeAttr(person.name)}" alt=""${posStyle} />`
+      ? `<img class="person-profile-photo" src="${escapeAttr(candidates[0])}" data-slug="${escapeAttr(person.slug)}" data-fallbacks="${escapeAttr(candidates.slice(1).join("|"))}" data-name="${escapeAttr(person.name)}" alt="${escapeAttr(person.name)}"${posStyle} />`
       : `<div class="person-profile-photo person-photo-placeholder" aria-hidden="true">${escapeHtml(initials(person.name))}</div>`;
 
     const bio = formatParagraphs(person.bio);

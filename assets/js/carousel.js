@@ -61,6 +61,28 @@ function resolveImageUrls(images) {
   return normalizeCarouselImages(images).map((item) => item.url);
 }
 
+function localFallbackUrl(config, index, currentUrl) {
+  const locals = config.images || [];
+  const raw = locals[index];
+  if (!raw) return "";
+  const url =
+    typeof raw === "string"
+      ? resolveCarouselUrl(raw)
+      : resolveCarouselUrl(raw.src || raw.url || "");
+  return url && url !== currentUrl ? url : "";
+}
+
+function applyBackground(slide, url, objectPosition, fallbackUrl) {
+  slide.style.backgroundPosition = objectPosition || "center center";
+  slide.style.backgroundImage = `url("${url}")`;
+  if (!fallbackUrl) return;
+  const probe = new Image();
+  probe.onerror = () => {
+    slide.style.backgroundImage = `url("${fallbackUrl}")`;
+  };
+  probe.src = url;
+}
+
 function shuffleArray(items) {
   const arr = items.slice();
   for (let i = arr.length - 1; i > 0; i--) {
@@ -86,6 +108,7 @@ function initImageCarousel(media, config, options) {
   items.forEach((item, i) => {
     const slide = document.createElement("div");
     slide.className = "banner-slide" + (i === 0 ? " active" : "");
+    const fallbackUrl = localFallbackUrl(config, i, item.url);
     if (opts.fixedFrame) {
       const img = document.createElement("img");
       img.src = item.url;
@@ -93,6 +116,11 @@ function initImageCarousel(media, config, options) {
       img.decoding = "async";
       img.loading = i === 0 ? "eager" : "lazy";
       img.style.objectPosition = item.objectPosition;
+      if (fallbackUrl) {
+        img.addEventListener("error", () => {
+          if (img.getAttribute("src") !== fallbackUrl) img.src = fallbackUrl;
+        });
+      }
       slide.appendChild(img);
     } else if (opts.naturalFit) {
       const img = document.createElement("img");
@@ -100,10 +128,14 @@ function initImageCarousel(media, config, options) {
       img.alt = "";
       img.decoding = "async";
       img.loading = i === 0 ? "eager" : "lazy";
+      if (fallbackUrl) {
+        img.addEventListener("error", () => {
+          if (img.getAttribute("src") !== fallbackUrl) img.src = fallbackUrl;
+        });
+      }
       slide.appendChild(img);
     } else {
-      slide.style.backgroundImage = `url("${item.url}")`;
-      slide.style.backgroundPosition = item.objectPosition || "center center";
+      applyBackground(slide, item.url, item.objectPosition, fallbackUrl);
     }
     carousel.appendChild(slide);
   });

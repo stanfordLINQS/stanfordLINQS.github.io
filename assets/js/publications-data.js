@@ -1,12 +1,10 @@
 /**
  * Lab publications — curated from Google Scholar (Amir Safavi-Naeini, user=QviK0DEAAAAJ).
- * Add optional `figure` paths under images/publications/ (key figure, ~150px wide).
  * Run `python scripts/fetch-scholar-publications.py` to list recent entries for review.
  */
 window.PUBLICATIONS = [
   {
     year: 2026,
-    figure: "images/publications/2026_Dean.png",
     authors:
       "D.J. Dean, T. Park, H.S. Stokowski, L. Qi, S. Robison, A.Y. Hwang, J.F. Herrmann, M.M. Fejer, A.H. Safavi-Naeini",
     title: "Low-power integrated optical amplification through second-harmonic resonance",
@@ -19,7 +17,6 @@ window.PUBLICATIONS = [
   },
   {
     year: 2026,
-    figure: "images/publications/2026_Multani.png",
     authors: "K.K.S. Multani, J.F. Herrmann, E.A. Nanni, A.H. Safavi-Naeini",
     title: "Integrated millimeter-wave cavity electro-optic transduction",
     journal: "Nature Communications",
@@ -30,7 +27,6 @@ window.PUBLICATIONS = [
   },
   {
     year: 2026,
-    figure: "images/publications/2026_Yuksel.png",
     authors:
       "M. Yuksel, M.P. Maksymowych, O.A. Hitchcock, F.M. Mayor, N.R. Lee, W. Jiang, M.L. Roukes, A.H. Safavi-Naeini",
     title: "Intrinsic phononic dressed states in a nanomechanical system",

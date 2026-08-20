@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Placeholder description for a research laboratory website."
+      content="The Laboratory for Integrated Nano-Quantum Systems (LINQS) at Stanford University develops chip-scale devices that guide and control light, sound, microwaves, and quantum electrical signals."
     />
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body>
-    <!-- Header -->
+    <a class="skip-link" href="#main">Skip to main content</a>
     <header id="header">
       <div class="inner">
         <a href="index.html" class="logo">
@@ -23,18 +23,17 @@
             >
           </span>
         </a>
-        <nav id="nav">
+        <nav id="nav" aria-label="Primary">
           <a href="index.html">Home</a>
           <a href="people.html">People</a>
           <a href="research.html">Research</a>
           <a href="publications.html">Publications</a>
           <a href="contact.html">Contact Us</a>
         </nav>
+        <button type="button" class="navPanelToggle" aria-label="Open menu" aria-controls="navPanel" aria-expanded="false">☰</button>
       </div>
     </header>
-    <a href="#navPanel" class="navPanelToggle" aria-label="Open menu">☰</a>
-
-    <nav id="navPanel" aria-label="Mobile navigation">
+    <nav id="navPanel" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="people.html">People</a>
       <a href="research.html">Research</a>
@@ -42,6 +41,7 @@
       <a href="contact.html">Contact Us</a>
     </nav>
 
+    <main id="main">
     <!-- Banner (welcome box + photo carousel — home page only) -->
     <section id="banner" class="banner-home">
       <div class="banner-split">
@@ -59,6 +59,7 @@
 
     <section id="research_summary">
       <div class="inner">
+        <h1 class="visually-hidden">Laboratory for Integrated Nano-Quantum Systems (LINQS)</h1>
         <p>
           We are the <span class="accent">Laboratory for Integrated
           Nano-Quantum Systems (LINQS)</span> at Stanford University. Our
@@ -93,7 +94,7 @@
 
         <div class="summary-panels">
           <article class="summary-panel">
-            <h3>Research</h3>
+            <h2>Research</h2>
             <p>
               Learn about the different branches of our research and how we engineer 
               chip-scale systems for emerging quantum technologies.
@@ -101,7 +102,7 @@
             <a href="research.html" class="panel-button">Explore</a>
           </article>
           <article class="summary-panel">
-            <h3>Publications</h3>
+            <h2>Publications</h2>
             <p>
               Read our latest papers and preprints in leading journals and archives across
               quantum science, nanophotonics, acoustics, and integrated devices. 
@@ -109,7 +110,7 @@
             <a href="publications.html" class="panel-button">Explore</a>
           </article>
           <article class="summary-panel">
-            <h3>People</h3>
+            <h2>People</h2>
             <p>
               Meet the researchers and collaborators working together to build the next 
               generation of nano-quantum systems.
@@ -118,7 +119,7 @@
           </article>
         </div>
 
-        <h3>Join us!</h3>
+        <h2>Join us!</h2>
         <p>
           Please feel free to
           <a href="contact.html">contact us</a> if you are interested in
@@ -126,7 +127,7 @@
           scholar, or collaborator.
         </p>
 
-        <h3>Funding and Collaborating Organizations</h3>
+        <h2>Funding and Collaborating Organizations</h2>
         <p>
           We gratefully acknowledge funding support from the U.S. Government
           through the National Science Foundation (CAREER and NSF-SNSF MOLINO
@@ -159,11 +160,18 @@
       </div>
     </section>
 
-    <section id="footer">
+    </main>
+
+    <footer>
       <div class="inner">
         <p>© LINQS Lab | Stanford University</p>
+        <p class="footer-legal">
+          <a href="https://www.stanford.edu/site/privacy/" title="Privacy and cookie policy">Privacy</a>
+          <span aria-hidden="true"> | </span>
+          <a href="https://www.stanford.edu/site/accessibility" title="Report web accessibility issues">Accessibility</a>
+        </p>
       </div>
-    </section>
+    </footer>
 
     <script src="assets/js/carousel-config.js"></script>
     <script src="assets/js/carousel-data.js"></script>

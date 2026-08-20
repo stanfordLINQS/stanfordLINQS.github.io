@@ -85,7 +85,7 @@
 
     return `
       <section class="people-group">
-        <h3>${escapeHtml(title)}</h3>
+        <h2>${escapeHtml(title)}</h2>
         <div class="people-grid">
           ${people.map(personCard).join("")}
         </div>
@@ -101,7 +101,7 @@
       if (!entries.length) return;
       blocks.push(`
         <div class="alumni-group">
-          ${currentGroup ? `<h4 class="alumni-subgroup">${escapeHtml(currentGroup)}</h4>` : ""}
+          ${currentGroup ? `<h3 class="alumni-subgroup">${escapeHtml(currentGroup)}</h3>` : ""}
           <ul class="alumni-list">
             ${entries.join("")}
           </ul>
@@ -120,7 +120,7 @@
 
     return `
       <section class="people-group people-group--alumni">
-        <h3>Alumni</h3>
+        <h2>Alumni</h2>
         ${blocks.join("")}
       </section>`;
   }

@@ -4,9 +4,11 @@
     <title>Profile — LINQS Lab</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Researcher profile at the Laboratory for Integrated Nano-Quantum Systems (LINQS) at Stanford University." />
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
     <header id="header">
       <div class="inner">
         <a href="index.html" class="logo">
@@ -18,17 +20,17 @@
             >
           </span>
         </a>
-        <nav id="nav">
+        <nav id="nav" aria-label="Primary">
           <a href="index.html">Home</a>
           <a href="people.html">People</a>
           <a href="research.html">Research</a>
           <a href="publications.html">Publications</a>
           <a href="contact.html">Contact Us</a>
         </nav>
+        <button type="button" class="navPanelToggle" aria-label="Open menu" aria-controls="navPanel" aria-expanded="false">☰</button>
       </div>
     </header>
-    <a href="#navPanel" class="navPanelToggle" aria-label="Open menu">☰</a>
-    <nav id="navPanel" aria-label="Mobile navigation">
+    <nav id="navPanel" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="people.html">People</a>
       <a href="research.html">Research</a>
@@ -36,6 +38,7 @@
       <a href="contact.html">Contact Us</a>
     </nav>
 
+    <main id="main">
     <section id="person-content">
       <div class="inner">
         <p id="person-status" class="people-status">Loading profile…</p>
@@ -43,11 +46,18 @@
       </div>
     </section>
 
-    <section id="footer">
+    </main>
+
+    <footer>
       <div class="inner">
         <p>© LINQS Lab | Stanford University</p>
+        <p class="footer-legal">
+          <a href="https://www.stanford.edu/site/privacy/" title="Privacy and cookie policy">Privacy</a>
+          <span aria-hidden="true"> | </span>
+          <a href="https://www.stanford.edu/site/accessibility" title="Report web accessibility issues">Accessibility</a>
+        </p>
       </div>
-    </section>
+    </footer>
     <script src="assets/js/people-config.js"></script>
     <script src="assets/js/people-data.js"></script>
     <script src="assets/js/person.js"></script>
