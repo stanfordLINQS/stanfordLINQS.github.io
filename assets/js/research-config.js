@@ -3,7 +3,8 @@
 //
 // Tabs:
 //   Research Groups Categorization (gid 0): column A = area headers, B = subprojects.
-//   One tab per area (same names as AREA_ORDER): column A = project title, B = description.
+//   One tab per area (same names as AREA_ORDER):
+//     column A = project title, B = description, C = photo, D = photo alt text.
 window.RESEARCH_CONFIG = {
   SHEET_ID: "1AEyTFuRnmF3psAuTVdzq6FsR-9saT2gxTAI-R4ki2Cg",
   GID: "0",

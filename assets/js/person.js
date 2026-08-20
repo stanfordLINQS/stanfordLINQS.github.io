@@ -37,6 +37,7 @@
         );
       }
       els.status.hidden = true;
+      setFallbackHeadingVisible(false);
       render(person);
     } catch (err) {
       console.error(err);
@@ -229,7 +230,13 @@
     );
   }
 
+  function setFallbackHeadingVisible(visible) {
+    const heading = document.getElementById("person-heading");
+    if (heading) heading.hidden = !visible;
+  }
+
   function showStatus(msg, isError) {
+    setFallbackHeadingVisible(true);
     els.status.textContent = msg;
     els.status.classList.toggle("error", !!isError);
     els.status.hidden = false;

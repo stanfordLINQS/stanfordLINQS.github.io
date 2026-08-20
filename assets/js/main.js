@@ -12,7 +12,6 @@
     "acoustics.html": "research.html",
     "nonlinear-optics.html": "research.html",
     "publications.html": "publications.html",
-    "conferences.html": "publications.html",
     "contact.html": "contact.html"
   };
   var currentSection = sectionByPage[file] || file;

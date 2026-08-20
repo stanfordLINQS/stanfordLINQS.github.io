@@ -168,6 +168,7 @@
       const titleCell = values[0] || "";
       const body = values[1] || "";
       const photo = resolvePhoto(values[2] || "");
+      const photoAlt = String(values[3] || "").trim();
       if (!titleCell && !body) continue;
 
       if (normalizeKey(titleCell) === "overview") {
@@ -183,7 +184,7 @@
         slug: slugify(title),
         body,
         photo,
-        photoAlt: "",
+        photoAlt,
         researchers: "",
       });
     }
@@ -210,6 +211,7 @@
       used.add(normalizeKey(project.title));
       project.body = match.body || project.body;
       project.photo = match.photo || project.photo;
+      project.photoAlt = match.photoAlt || project.photoAlt;
     }
 
     for (const project of extra.projects) {
@@ -219,9 +221,12 @@
 
     for (const project of area.projects) {
       const figure = FIGURES[project.slug];
-      if (!project.photo && figure) {
-        project.photo = figure.src;
-        project.photoAlt = figure.alt || "";
+      if (figure) {
+        if (!project.photo) project.photo = figure.src;
+        if (!project.photoAlt) project.photoAlt = figure.alt || "";
+      }
+      if (project.photo && !project.photoAlt) {
+        project.photoAlt = `Research figure for ${project.title}`;
       }
     }
 

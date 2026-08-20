@@ -124,7 +124,7 @@
       .join("");
     const figure = project.photo
       ? `<figure class="research-project-figure">
-          <img src="${escapeAttr(project.photo)}" alt="${escapeAttr(project.photoAlt || "")}" loading="lazy" />
+          <img src="${escapeAttr(project.photo)}" alt="${escapeAttr(project.photoAlt || project.title)}" loading="lazy" />
         </figure>`
       : "";
     const hasFigure = figure ? " has-figure" : "";

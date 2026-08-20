@@ -166,6 +166,12 @@ function initImageCarousel(media, config, options) {
 
   const dotsWrap = document.createElement("div");
   dotsWrap.className = "banner-dots";
+
+  const pauseBtn = document.createElement("button");
+  pauseBtn.type = "button";
+  pauseBtn.className = "banner-pause";
+  dotsWrap.appendChild(pauseBtn);
+
   const dots = items.map((_, i) => {
     const dot = document.createElement("button");
     dot.type = "button";
@@ -183,11 +189,15 @@ function initImageCarousel(media, config, options) {
   media.appendChild(nextBtn);
   media.appendChild(dotsWrap);
 
-  if (slides.length < 2) {
-    prevBtn.style.display = "none";
-    nextBtn.style.display = "none";
-    dotsWrap.style.display = "none";
+  const multi = slides.length > 1;
+  if (!multi) {
+    prevBtn.hidden = true;
+    nextBtn.hidden = true;
+    dotsWrap.hidden = true;
   }
+
+  let userPaused = false;
+  let holdPaused = false;
 
   function show(next) {
     slides[index].classList.remove("active");
@@ -217,14 +227,38 @@ function initImageCarousel(media, config, options) {
     window.addEventListener("resize", resizeToActive);
   }
 
+  function autoplayAllowed() {
+    return multi && !userPaused && !holdPaused && !document.hidden;
+  }
+
+  function syncPauseButton() {
+    pauseBtn.hidden = !multi;
+    pauseBtn.textContent = userPaused ? "Play" : "Pause";
+    pauseBtn.setAttribute(
+      "aria-label",
+      userPaused ? "Play slideshow" : "Pause slideshow"
+    );
+  }
+
   function start() {
     stop();
+    if (!autoplayAllowed()) return;
     timer = setInterval(() => show(index + 1), intervalMs);
   }
 
   function stop() {
-    if (timer) clearInterval(timer);
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
   }
+
+  pauseBtn.addEventListener("click", () => {
+    userPaused = !userPaused;
+    syncPauseButton();
+    if (userPaused) stop();
+    else start();
+  });
 
   prevBtn.addEventListener("click", () => {
     show(index - 1);
@@ -235,8 +269,30 @@ function initImageCarousel(media, config, options) {
     start();
   });
 
-  media.addEventListener("mouseenter", stop);
-  media.addEventListener("mouseleave", start);
+  media.addEventListener("mouseenter", () => {
+    holdPaused = true;
+    stop();
+  });
+  media.addEventListener("mouseleave", () => {
+    holdPaused = false;
+    start();
+  });
+  media.addEventListener("focusin", () => {
+    holdPaused = true;
+    stop();
+  });
+  media.addEventListener("focusout", (event) => {
+    if (media.contains(event.relatedTarget)) return;
+    holdPaused = false;
+    start();
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  syncPauseButton();
   start();
 }
 
