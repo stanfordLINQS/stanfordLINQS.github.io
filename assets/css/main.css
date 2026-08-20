@@ -1260,19 +1260,15 @@ footer p {
   margin: 0;
 }
 
-.footer-ownership,
 .footer-legal {
   margin-top: 0.5em;
 }
 
-.footer-ownership a,
 .footer-legal a {
   color: #ccc;
   border-bottom: none;
 }
 
-.footer-ownership a:hover,
-.footer-ownership a:focus-visible,
 .footer-legal a:hover,
 .footer-legal a:focus-visible {
   color: #fff;
