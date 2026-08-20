@@ -1111,8 +1111,6 @@ h1.page-title {
   text-align: left;
   color: #fff;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
-  overflow-wrap: anywhere;
-  hyphens: auto;
 }
 
 .summary-panels {
