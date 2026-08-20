@@ -204,12 +204,30 @@ p { margin: 0 0 1.5em 0; }
   font-weight: 500;
   font-size: 0.95em;
   letter-spacing: 0.04em;
+  position: relative;
+  display: inline-block;
+}
+
+#nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.4em;
+  width: 0;
+  height: 4px;
+  background: #fff;
+  transition: width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+#nav a:hover::after,
+#nav a:focus-visible::after,
+#nav a[aria-current="page"]::after {
+  width: 100%;
 }
 
 #nav a:hover,
 #nav a:focus-visible {
   color: #fff;
-  opacity: 0.85;
   outline-color: #fff;
 }
 
@@ -1263,18 +1281,36 @@ body.nav-open {
 
 #navPanel a {
   display: block;
+  width: fit-content;
   color: #fff;
   border: none;
   padding: 0.75em 0;
   font-size: 1.1em;
   font-weight: 500;
   letter-spacing: 0.04em;
+  position: relative;
+}
+
+#navPanel a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.45em;
+  width: 0;
+  height: 4px;
+  background: #fff;
+  transition: width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+#navPanel a:hover::after,
+#navPanel a:focus-visible::after,
+#navPanel a[aria-current="page"]::after {
+  width: 100%;
 }
 
 #navPanel a:hover,
 #navPanel a:focus-visible {
   color: #fff;
-  opacity: 0.85;
   outline-color: #fff;
 }
 

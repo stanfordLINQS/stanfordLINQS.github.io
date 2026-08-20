@@ -1,4 +1,31 @@
 (function () {
+  var file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  if (!file) file = "index.html";
+
+  var sectionByPage = {
+    "index.html": "index.html",
+    "people.html": "people.html",
+    "person.html": "people.html",
+    "research.html": "research.html",
+    "transduction.html": "research.html",
+    "superconducting-circuits.html": "research.html",
+    "acoustics.html": "research.html",
+    "nonlinear-optics.html": "research.html",
+    "publications.html": "publications.html",
+    "conferences.html": "publications.html",
+    "contact.html": "contact.html"
+  };
+  var currentSection = sectionByPage[file] || file;
+
+  document.querySelectorAll("#nav a, #navPanel a").forEach(function (link) {
+    var href = (link.getAttribute("href") || "").split("/").pop().toLowerCase();
+    if (href === currentSection) {
+      link.setAttribute("aria-current", "page");
+    }
+  });
+})();
+
+(function () {
   var toggle = document.querySelector(".navPanelToggle");
   var panel = document.getElementById("navPanel");
   if (!toggle || !panel) return;
