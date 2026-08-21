@@ -1,5 +1,5 @@
 (function () {
-  const { SECTION_ORDER, loadPeople, photoCandidates, initials, personUrl } = window.PEOPLE_DATA || {};
+  const { loadPeople, photoCandidates, initials, personUrl } = window.PEOPLE_DATA || {};
 
   const els = {
     status: document.getElementById("people-status"),
@@ -55,27 +55,17 @@
   }
 
   function render(grouped) {
-    const seen = new Set();
-    const order = [];
+    const order = [...grouped.keys()].filter((section) => grouped.get(section).length);
+    const alumni = order.filter((section) => section === "Alumni");
+    const rest = order.filter((section) => section !== "Alumni");
 
-    for (const section of SECTION_ORDER) {
-      if (grouped.has(section) && grouped.get(section).length) {
-        order.push(section);
-        seen.add(section);
-      }
-    }
-
-    for (const section of grouped.keys()) {
-      if (!seen.has(section) && grouped.get(section).length) order.push(section);
-    }
-
-    const html = order
+    const html = [...rest, ...alumni]
       .map((section) => sectionHtml(section, grouped.get(section)))
       .join("");
 
     els.sections.innerHTML =
       html ||
-      '<p class="people-status error">No sections matched. Check SECTION_ORDER in people-config.js.</p>';
+      '<p class="people-status error">No sections found in the spreadsheet.</p>';
   }
 
   function sectionHtml(title, people) {
@@ -157,7 +147,7 @@
       ? ` style="object-position: ${escapeAttr(person.photoPosition)}"`
       : "";
     const photoInner = candidates.length
-      ? `<img class="person-photo" src="${escapeAttr(candidates[0])}" data-slug="${escapeAttr(person.slug)}" data-fallbacks="${escapeAttr(candidates.slice(1).join("|"))}" data-name="${escapeAttr(person.name)}" alt="" loading="lazy"${posStyle} />`
+      ? `<img class="person-photo" src="${escapeAttr(candidates[0])}" data-slug="${escapeAttr(person.slug)}" data-fallbacks="${escapeAttr(candidates.slice(1).join("|"))}" data-name="${escapeAttr(person.name)}" alt="" loading="lazy" referrerpolicy="no-referrer"${posStyle} />`
       : `<span class="person-photo person-photo-placeholder" aria-hidden="true">${escapeHtml(initials(person.name))}</span>`;
     const photo = `<a class="person-photo-link" href="${profileHref}" aria-label="${profileLabel}">${photoInner}</a>`;
 

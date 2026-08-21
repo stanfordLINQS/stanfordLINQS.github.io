@@ -1,31 +1,10 @@
 (function () {
   const config = window.PEOPLE_CONFIG || {};
-  const { SHEET_ID, GID = "0", ALUMNI_SHEET = "", PHOTOS = {}, PHOTO_POSITION = {}, PHOTO_VERSION = "1", SECTION_ORDER = [], THESIS_URLS = {} } = config;
+  const { SHEET_ID, GID = "0", ALUMNI_SHEET = "", PHOTOS = {}, PHOTO_POSITION = {}, PHOTO_VERSION = "1", THESIS_URLS = {} } = config;
 
   const COL_SECTION = 0;
   const COL_NAME = 1;
   const PHOTO_EXTS = ["jpg", "jpeg", "webp", "png"];
-
-  const SECTION_ALIASES = {
-    pi: "Principal Investigator",
-    "principal investigator": "Principal Investigator",
-    "principle investigator": "Principal Investigator",
-    postdoc: "Postdoctoral Researchers",
-    "postdoctoral researcher": "Postdoctoral Researchers",
-    "postdoctoral researchers": "Postdoctoral Researchers",
-    "graduate student researchers": "Graduate Student Researchers",
-    "graduate student researcher": "Graduate Student Researchers",
-    "ph.d. student researchers": "Graduate Student Researchers",
-    "phd student researchers": "Graduate Student Researchers",
-    "undergraduate student researchers": "Undergraduate Student Researchers",
-    "undergraduate student researcher": "Undergraduate Student Researchers",
-    "undergraduate researchers": "Undergraduate Student Researchers",
-    administration: "Administration",
-    administrative: "Administration",
-    "administrative staff": "Administration",
-    alumni: "Alumni",
-    "affiliated researchers": "Affiliated Researchers",
-  };
 
   function sectionKey(text) {
     return String(text || "")
@@ -34,31 +13,13 @@
       .replace(/\s+/g, " ");
   }
 
-  function isKnownSectionName(text) {
+  function isReservedHeader(text) {
     const key = sectionKey(text);
-    if (!key) return false;
-    if (SECTION_ALIASES[key]) return true;
-    return SECTION_ORDER.map((s) => sectionKey(s)).includes(key);
-  }
-
-  function isSectionLabel(text) {
-    const key = sectionKey(text);
-    if (!key) return false;
-    if (isKnownSectionName(text)) return true;
-    return /investigator|researchers?|students?|administration|administrative|alumni|affiliated/i.test(text);
+    return key === "section" || key === "role" || key === "group" || key === "name";
   }
 
   function normalizeSection(raw) {
-    const key = sectionKey(raw);
-    if (!key) return "";
-    if (SECTION_ALIASES[key]) return SECTION_ALIASES[key];
-    const fromOrder = SECTION_ORDER.find((s) => sectionKey(s) === key);
-    if (fromOrder) return fromOrder;
-    return titleCase(raw.trim());
-  }
-
-  function titleCase(str) {
-    return str.replace(/\w\S*/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+    return String(raw || "").trim();
   }
 
   function findCol(labels, candidates) {
@@ -85,7 +46,6 @@
     const detail = sectionKey(value);
     const heading = sectionKey(section);
     if (!detail || !heading) return false;
-    if (isKnownSectionName(value)) return true;
     if (detail === heading) return true;
     if (detail === heading.replace(/s$/, "")) return true;
     if (heading === detail.replace(/s$/, "")) return true;
@@ -93,14 +53,18 @@
   }
 
   function formatCell(cell) {
-    if (!cell || cell.v == null) return "";
+    if (!cell) return "";
+    if (cell.v != null && String(cell.v).trim()) return String(cell.v).trim();
     if (cell.f) return String(cell.f).replace(/^=/, "").trim();
-    return String(cell.v).trim();
+    return "";
   }
 
   function extractDriveId(url) {
-    const m = String(url).match(/\/d\/([a-zA-Z0-9_-]+)|[?&]id=([a-zA-Z0-9_-]+)/);
-    return m ? m[1] || m[2] : "";
+    const raw = String(url || "").trim();
+    const m = raw.match(/\/d\/([a-zA-Z0-9_-]+)|[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m) return m[1] || m[2];
+    if (/^[a-zA-Z0-9_-]{20,}$/.test(raw)) return raw;
+    return "";
   }
 
   function cacheBust(url) {
@@ -109,27 +73,27 @@
     return `${url}${joiner}v=${encodeURIComponent(PHOTO_VERSION)}`;
   }
 
+  function drivePhotoUrls(fileId) {
+    if (!fileId) return [];
+    const id = encodeURIComponent(fileId);
+    return [
+      `https://lh3.googleusercontent.com/d/${fileId}=w800`,
+      `https://drive.google.com/thumbnail?id=${id}&sz=w1000`,
+      `https://lh3.googleusercontent.com/d/${fileId}`,
+    ];
+  }
+
   function drivePhotoUrl(fileId) {
-    // lh3 CDN embeds reliably on localhost and GitHub Pages (uc?export=view often does not).
-    return `https://lh3.googleusercontent.com/d/${fileId}=w800`;
+    return drivePhotoUrls(fileId)[0] || "";
   }
 
   function resolvePhoto(value, name) {
-    const fromConfig = PHOTOS[name];
-    const raw = (fromConfig || value || "").trim();
+    const raw = String(value || PHOTOS[name] || "").trim();
     if (!raw) return "";
 
     const driveId = extractDriveId(raw);
-    if (driveId) {
-      return drivePhotoUrl(driveId);
-    }
-
+    if (driveId) return drivePhotoUrl(driveId);
     if (/^https?:\/\//i.test(raw)) return raw;
-
-    if (/^[a-zA-Z0-9_-]{20,}$/.test(raw)) {
-      return drivePhotoUrl(raw);
-    }
-
     return cacheBust(`images/people/${raw.replace(/^\.?\//, "")}`);
   }
 
@@ -145,12 +109,24 @@
 
   function photoCandidates(person) {
     const candidates = [];
-    if (person.photo) candidates.push(person.photo);
+    const seen = new Set();
+
+    function add(url) {
+      if (!url || seen.has(url)) return;
+      seen.add(url);
+      candidates.push(url);
+    }
+
+    const driveId = person.driveId || extractDriveId(person.photo);
+    drivePhotoUrls(driveId).forEach(add);
+    add(person.photo);
+
+    if (!person.photo && !driveId) return candidates;
+
     const slug = slugify(person.name);
     if (slug) {
       for (const ext of PHOTO_EXTS) {
-        const local = cacheBust(`images/people/${slug}.${ext}`);
-        if (!candidates.includes(local)) candidates.push(local);
+        add(cacheBust(`images/people/${slug}.${ext}`));
       }
     }
     return candidates;
@@ -213,17 +189,17 @@
 
       if (isHeaderRow(name, sectionCell)) continue;
 
-      if (sectionCell && isSectionLabel(sectionCell)) {
+      if (sectionCell && !isReservedHeader(sectionCell)) {
         currentSection = normalizeSection(sectionCell);
         if (!grouped.has(currentSection)) grouped.set(currentSection, []);
-        if (!name || isSectionLabel(name)) continue;
+        if (!name) continue;
       }
 
       if (!name || !currentSection) continue;
-      if (isSectionLabel(name)) continue;
 
       const title = col.title >= 0 ? values[col.title] : "";
       const displayTitle = title && !isRedundantDetail(title, currentSection) ? title : "";
+      const sheetPhoto = col.photo >= 0 ? values[col.photo] : "";
 
       const person = {
         name,
@@ -242,7 +218,8 @@
         researchAreas: col.researchAreas >= 0 ? values[col.researchAreas] : "",
         education: col.education >= 0 ? values[col.education] : "",
         bio: col.bio >= 0 ? values[col.bio] : "",
-        photo: resolvePhoto(col.photo >= 0 ? values[col.photo] : "", name),
+        photo: resolvePhoto(sheetPhoto, name),
+        driveId: extractDriveId(sheetPhoto) || extractDriveId(PHOTOS[name] || ""),
         photoPosition: PHOTO_POSITION[name] || "",
       };
 
@@ -271,12 +248,12 @@
       if (!values.some(Boolean)) continue;
       if (name.toLowerCase() === "name") continue;
 
-      if (groupCell && isSectionLabel(groupCell)) {
+      if (groupCell && !isReservedHeader(groupCell)) {
         currentGroup = normalizeSection(groupCell);
-        if (!name || isSectionLabel(name)) continue;
+        if (!name) continue;
       }
 
-      if (!name || isSectionLabel(name)) continue;
+      if (!name) continue;
 
       alumni.push({
         name,
@@ -340,7 +317,6 @@
   }
 
   window.PEOPLE_DATA = {
-    SECTION_ORDER,
     loadPeople,
     parseGviz,
     slugify,

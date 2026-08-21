@@ -54,7 +54,7 @@
       ? ` style="object-position: ${escapeAttr(person.photoPosition)}"`
       : "";
     const photo = candidates.length
-      ? `<img class="person-profile-photo" src="${escapeAttr(candidates[0])}" data-slug="${escapeAttr(person.slug)}" data-fallbacks="${escapeAttr(candidates.slice(1).join("|"))}" data-name="${escapeAttr(person.name)}" alt="${escapeAttr(person.name)}"${posStyle} />`
+      ? `<img class="person-profile-photo" src="${escapeAttr(candidates[0])}" data-slug="${escapeAttr(person.slug)}" data-fallbacks="${escapeAttr(candidates.slice(1).join("|"))}" data-name="${escapeAttr(person.name)}" alt="${escapeAttr(person.name)}" referrerpolicy="no-referrer"${posStyle} />`
       : `<div class="person-profile-photo person-photo-placeholder" aria-hidden="true">${escapeHtml(initials(person.name))}</div>`;
 
     const bio = formatParagraphs(person.bio);
