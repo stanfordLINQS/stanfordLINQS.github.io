@@ -42,7 +42,7 @@
 
     showStatus("Loading research…");
     try {
-      const { grouped } = await loadResearch();
+      const { grouped } = await loadResearch({ sheet: areaHint });
       const area = findArea(grouped, areaHint);
       if (!area) {
         return showStatus("No projects found for this research area.", true);

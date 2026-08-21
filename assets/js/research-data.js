@@ -115,6 +115,7 @@
       image: lookupMap(PANEL_IMAGES, name) || `images/research/${slug}.png`,
       overview: "",
       projects: [],
+      loaded: false,
     };
   }
 
@@ -246,29 +247,103 @@
     return res.text();
   }
 
+  const CACHE_KEY = `linqs-research-v1:${SHEET_ID}`;
+  const CACHE_TTL_MS = 5 * 60 * 1000;
   let cache = null;
 
-  async function loadResearch() {
-    if (cache) return cache;
+  function serializeAreas(grouped) {
+    return Array.from(grouped.values());
+  }
+
+  function deserializeAreas(areas) {
+    const grouped = new Map();
+    for (const area of areas || []) {
+      if (!area || !area.name) continue;
+      grouped.set(area.name, area);
+    }
+    return grouped;
+  }
+
+  function readSessionCache() {
+    try {
+      const raw = sessionStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || Date.now() - parsed.ts > CACHE_TTL_MS) return null;
+      const grouped = deserializeAreas(parsed.areas);
+      if (!grouped.size) return null;
+      return { grouped };
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function writeSessionCache(grouped) {
+    try {
+      sessionStorage.setItem(
+        CACHE_KEY,
+        JSON.stringify({ ts: Date.now(), areas: serializeAreas(grouped) })
+      );
+    } catch (err) {
+      /* quota / private mode */
+    }
+  }
+
+  function applyAreaSheet(grouped, sheetName, text) {
+    const area = findArea(grouped, sheetName);
+    if (!area) return;
+    try {
+      mergeAreaContent(area, parseAreaSheet(text));
+      area.loaded = true;
+    } catch (err) {
+      console.error(`Could not parse research sheet “${sheetName}”.`, err);
+    }
+  }
+
+  async function ensureAreaSheet(grouped, sheetName) {
+    const area = findArea(grouped, sheetName);
+    if (!area || area.loaded) return;
+    const names = [sheetName, area.name].filter(
+      (name, i, all) => name && all.indexOf(name) === i
+    );
+    for (const name of names) {
+      try {
+        applyAreaSheet(grouped, name, await fetchSheetGviz({ sheet: name }));
+        if (area.loaded) return;
+      } catch (err) {
+        console.error(`Could not load research sheet “${name}”.`, err);
+      }
+    }
+  }
+
+  async function loadResearch({ sheet } = {}) {
     if (!SHEET_ID) throw new Error("Missing SHEET_ID in research-config.js.");
 
-    const grouped = parseCategorization(await fetchSheetGviz({ gid: GID }));
-    const areaNames = Array.from(grouped.keys());
-    const results = await Promise.allSettled(
-      areaNames.map((name) => fetchSheetGviz({ sheet: name }))
-    );
+    if (!cache) cache = readSessionCache();
 
-    areaNames.forEach((name, i) => {
-      const result = results[i];
-      if (result.status !== "fulfilled") return;
-      try {
-        mergeAreaContent(grouped.get(name), parseAreaSheet(result.value));
-      } catch (err) {
-        console.error(`Could not parse research sheet “${name}”.`, err);
+    if (!cache) {
+      const fetches = [fetchSheetGviz({ gid: GID })];
+      if (sheet) fetches.push(fetchSheetGviz({ sheet }));
+
+      const results = await Promise.allSettled(fetches);
+      if (results[0].status !== "fulfilled") throw results[0].reason;
+
+      const grouped = parseCategorization(results[0].value);
+      if (sheet && results[1] && results[1].status === "fulfilled") {
+        applyAreaSheet(grouped, sheet, results[1].value);
       }
-    });
+      if (sheet) await ensureAreaSheet(grouped, sheet);
 
-    cache = { grouped };
+      cache = { grouped };
+      writeSessionCache(grouped);
+      return cache;
+    }
+
+    if (sheet) {
+      await ensureAreaSheet(cache.grouped, sheet);
+      writeSessionCache(cache.grouped);
+    }
+
     return cache;
   }
 
