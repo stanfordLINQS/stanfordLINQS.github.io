@@ -3,28 +3,17 @@
   const {
     SHEET_ID,
     GID = "0",
-    AREA_ORDER = [],
     AREA_PAGES = {},
     PANEL_IMAGES = {},
     FIGURES = {},
   } = config;
 
-  const AREA_ALIASES = {
-    "nonlinear optics": "Nonlinear Optics",
-    transduction: "Transduction",
-    acoustics: "Acoustics",
-    "superconducting circuits": "Superconducting Circuits",
-  };
-
-  const PROJECT_ALIASES = {
-    "piezo optomechanics transduction": "Piezo Optomechanics Transduction",
-    "piezo optomechanical transduction": "Piezo Optomechanics Transduction",
-    "eo transduction": "EO Transduction",
-    "electro optic transduction": "EO Transduction",
-    "integrated photonics": "Integrated Phononics",
-    "integrated phononics": "Integrated Phononics",
-    "bio sensing": "Bio Sensing",
-    biosensing: "Bio Sensing",
+  // Spellings that should still share a description, without changing the displayed title.
+  const PROJECT_MATCH_KEYS = {
+    "piezo optomechanics transduction": "piezo optomechanical transduction",
+    "eo transduction": "electro optic transduction",
+    "integrated photonics": "integrated phononics",
+    biosensing: "bio sensing",
   };
 
   function normalizeKey(text) {
@@ -73,26 +62,36 @@
     return raw.replace(/^\.?\//, "");
   }
 
-  function canonicalArea(raw) {
-    const key = normalizeKey(raw);
-    if (!key) return "";
-    if (AREA_ALIASES[key]) return AREA_ALIASES[key];
-    const fromOrder = AREA_ORDER.find((name) => normalizeKey(name) === key);
-    return fromOrder || String(raw).trim();
+  function lookupMap(map, name) {
+    if (!map || !name) return "";
+    if (map[name]) return map[name];
+    const slug = slugify(name);
+    if (map[slug]) return map[slug];
+    for (const [key, value] of Object.entries(map)) {
+      if (slugify(key) === slug) return value;
+    }
+    return "";
   }
 
-  function canonicalProject(raw) {
+  function findArea(grouped, raw) {
+    const slug = slugify(raw);
+    const key = normalizeKey(raw);
+    if (!slug && !key) return null;
+    for (const area of grouped.values()) {
+      if (area.slug === slug || normalizeKey(area.name) === key) return area;
+    }
+    return grouped.get(String(raw || "").trim()) || null;
+  }
+
+  function matchKey(raw) {
+    const key = normalizeKey(raw);
+    return PROJECT_MATCH_KEYS[key] || key;
+  }
+
+  function projectTitle(raw) {
     const key = normalizeKey(raw);
     if (!key || key === "overview" || key === "sub projects") return "";
-    if (PROJECT_ALIASES[key]) return PROJECT_ALIASES[key];
     return String(raw).trim();
-  }
-
-  function isAreaName(raw) {
-    const key = normalizeKey(raw);
-    if (!key) return false;
-    if (AREA_ALIASES[key]) return true;
-    return AREA_ORDER.some((name) => normalizeKey(name) === key);
   }
 
   function isHeaderRow(values) {
@@ -108,11 +107,12 @@
   }
 
   function emptyArea(name) {
+    const slug = slugify(name);
     return {
       name,
-      slug: slugify(name),
-      page: AREA_PAGES[name] || `${slugify(name)}.html`,
-      image: PANEL_IMAGES[name] || "",
+      slug,
+      page: lookupMap(AREA_PAGES, name) || `${slug}.html`,
+      image: lookupMap(PANEL_IMAGES, name) || `images/research/${slug}.png`,
       overview: "",
       projects: [],
     };
@@ -122,11 +122,8 @@
     const json = JSON.parse(text.replace(/^[^(]*\(/, "").replace(/\);?\s*$/, ""));
     const rows = json.table.rows || [];
     const grouped = new Map();
+    const byKey = new Map();
     let currentArea = "";
-
-    for (const name of AREA_ORDER) {
-      grouped.set(name, emptyArea(name));
-    }
 
     for (const row of rows) {
       const values = (row.c || []).map((cell) => formatCell(cell));
@@ -136,12 +133,17 @@
       if (!areaCell && !projectCell) continue;
       if (isHeaderRow([areaCell, projectCell, researchersCell])) continue;
 
-      if (areaCell) currentArea = canonicalArea(areaCell);
+      if (areaCell) {
+        const key = normalizeKey(areaCell);
+        currentArea = byKey.get(key) || areaCell.trim();
+        if (!grouped.has(currentArea)) {
+          grouped.set(currentArea, emptyArea(currentArea));
+          byKey.set(key, currentArea);
+        }
+      }
       if (!currentArea) continue;
 
-      if (!grouped.has(currentArea)) grouped.set(currentArea, emptyArea(currentArea));
-
-      const title = canonicalProject(projectCell);
+      const title = projectTitle(projectCell);
       if (!title) continue;
 
       grouped.get(currentArea).projects.push({
@@ -176,7 +178,7 @@
         continue;
       }
 
-      const title = canonicalProject(titleCell) || titleCell.trim();
+      const title = projectTitle(titleCell) || titleCell.trim();
       if (!title) continue;
 
       projects.push({
@@ -201,21 +203,22 @@
 
     const byKey = new Map();
     for (const project of extra.projects) {
-      byKey.set(normalizeKey(project.title), project);
+      byKey.set(matchKey(project.title), project);
     }
 
     const used = new Set();
     for (const project of area.projects) {
-      const match = byKey.get(normalizeKey(project.title));
+      const key = matchKey(project.title);
+      const match = byKey.get(key);
       if (!match) continue;
-      used.add(normalizeKey(project.title));
+      used.add(key);
       project.body = match.body || project.body;
       project.photo = match.photo || project.photo;
       project.photoAlt = match.photoAlt || project.photoAlt;
     }
 
     for (const project of extra.projects) {
-      if (used.has(normalizeKey(project.title))) continue;
+      if (used.has(matchKey(project.title))) continue;
       area.projects.push(project);
     }
 
@@ -249,22 +252,16 @@
     if (cache) return cache;
     if (!SHEET_ID) throw new Error("Missing SHEET_ID in research-config.js.");
 
-    const areaNames = AREA_ORDER.slice();
-    const requests = [fetchSheetGviz({ gid: GID })].concat(
+    const grouped = parseCategorization(await fetchSheetGviz({ gid: GID }));
+    const areaNames = Array.from(grouped.keys());
+    const results = await Promise.allSettled(
       areaNames.map((name) => fetchSheetGviz({ sheet: name }))
     );
 
-    const results = await Promise.allSettled(requests);
-    const catResult = results[0];
-    if (catResult.status !== "fulfilled") throw catResult.reason;
-
-    const grouped = parseCategorization(catResult.value);
-
     areaNames.forEach((name, i) => {
-      const result = results[i + 1];
+      const result = results[i];
       if (result.status !== "fulfilled") return;
       try {
-        if (!grouped.has(name)) grouped.set(name, emptyArea(name));
         mergeAreaContent(grouped.get(name), parseAreaSheet(result.value));
       } catch (err) {
         console.error(`Could not parse research sheet “${name}”.`, err);
@@ -276,10 +273,9 @@
   }
 
   window.RESEARCH_DATA = {
-    AREA_ORDER,
     loadResearch,
     slugify,
     paragraphs,
-    canonicalArea,
+    findArea,
   };
 })();

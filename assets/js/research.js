@@ -1,5 +1,5 @@
 (function () {
-  const { AREA_ORDER, loadResearch, paragraphs, canonicalArea } = window.RESEARCH_DATA || {};
+  const { loadResearch, paragraphs, findArea } = window.RESEARCH_DATA || {};
 
   const els = {
     status: document.getElementById("research-status"),
@@ -35,15 +35,15 @@
   }
 
   async function loadArea() {
-    const areaName = canonicalArea(els.areaRoot && els.areaRoot.dataset.researchArea);
-    if (!areaName) {
+    const areaHint = els.areaRoot && els.areaRoot.dataset.researchArea;
+    if (!areaHint) {
       return showStatus("Missing research area.", true);
     }
 
     showStatus("Loading research…");
     try {
       const { grouped } = await loadResearch();
-      const area = grouped.get(areaName);
+      const area = findArea(grouped, areaHint);
       if (!area) {
         return showStatus("No projects found for this research area.", true);
       }
@@ -60,27 +60,8 @@
     }
   }
 
-  function orderedAreas(grouped) {
-    const seen = new Set();
-    const order = [];
-
-    for (const name of AREA_ORDER) {
-      order.push(name);
-      seen.add(name);
-    }
-
-    for (const name of grouped.keys()) {
-      if (!seen.has(name)) {
-        order.push(name);
-        seen.add(name);
-      }
-    }
-
-    return order.map((name) => grouped.get(name)).filter(Boolean);
-  }
-
   function renderPanels(grouped) {
-    const html = orderedAreas(grouped)
+    const html = Array.from(grouped.values())
       .map((area) => {
         const href = escapeAttr(area.page || "#");
         const imageStyle = area.image
@@ -104,7 +85,7 @@
 
     els.panels.innerHTML =
       html ||
-      '<p class="people-status error">No research areas found. Check AREA_ORDER in research-config.js.</p>';
+      '<p class="people-status error">No research areas found in the spreadsheet.</p>';
   }
 
   function renderArea(area) {
