@@ -241,52 +241,16 @@
     const param = sheet
       ? `sheet=${encodeURIComponent(sheet)}`
       : `gid=${encodeURIComponent(gid ?? GID)}`;
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&${param}`;
-    const res = await fetch(url);
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&${param}&_=${Date.now()}`;
+    const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.text();
   }
 
-  const CACHE_KEY = `linqs-research-v1:${SHEET_ID}`;
-  const CACHE_TTL_MS = 5 * 60 * 1000;
-  let cache = null;
-
-  function serializeAreas(grouped) {
-    return Array.from(grouped.values());
-  }
-
-  function deserializeAreas(areas) {
-    const grouped = new Map();
-    for (const area of areas || []) {
-      if (!area || !area.name) continue;
-      grouped.set(area.name, area);
-    }
-    return grouped;
-  }
-
-  function readSessionCache() {
-    try {
-      const raw = sessionStorage.getItem(CACHE_KEY);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      if (!parsed || Date.now() - parsed.ts > CACHE_TTL_MS) return null;
-      const grouped = deserializeAreas(parsed.areas);
-      if (!grouped.size) return null;
-      return { grouped };
-    } catch (err) {
-      return null;
-    }
-  }
-
-  function writeSessionCache(grouped) {
-    try {
-      sessionStorage.setItem(
-        CACHE_KEY,
-        JSON.stringify({ ts: Date.now(), areas: serializeAreas(grouped) })
-      );
-    } catch (err) {
-      /* quota / private mode */
-    }
+  try {
+    sessionStorage.removeItem(`linqs-research-v1:${SHEET_ID}`);
+  } catch (err) {
+    /* private mode */
   }
 
   function applyAreaSheet(grouped, sheetName, text) {
@@ -319,32 +283,19 @@
   async function loadResearch({ sheet } = {}) {
     if (!SHEET_ID) throw new Error("Missing SHEET_ID in research-config.js.");
 
-    if (!cache) cache = readSessionCache();
+    const fetches = [fetchSheetGviz({ gid: GID })];
+    if (sheet) fetches.push(fetchSheetGviz({ sheet }));
 
-    if (!cache) {
-      const fetches = [fetchSheetGviz({ gid: GID })];
-      if (sheet) fetches.push(fetchSheetGviz({ sheet }));
+    const results = await Promise.allSettled(fetches);
+    if (results[0].status !== "fulfilled") throw results[0].reason;
 
-      const results = await Promise.allSettled(fetches);
-      if (results[0].status !== "fulfilled") throw results[0].reason;
-
-      const grouped = parseCategorization(results[0].value);
-      if (sheet && results[1] && results[1].status === "fulfilled") {
-        applyAreaSheet(grouped, sheet, results[1].value);
-      }
-      if (sheet) await ensureAreaSheet(grouped, sheet);
-
-      cache = { grouped };
-      writeSessionCache(grouped);
-      return cache;
+    const grouped = parseCategorization(results[0].value);
+    if (sheet && results[1] && results[1].status === "fulfilled") {
+      applyAreaSheet(grouped, sheet, results[1].value);
     }
+    if (sheet) await ensureAreaSheet(grouped, sheet);
 
-    if (sheet) {
-      await ensureAreaSheet(cache.grouped, sheet);
-      writeSessionCache(cache.grouped);
-    }
-
-    return cache;
+    return { grouped };
   }
 
   window.RESEARCH_DATA = {
