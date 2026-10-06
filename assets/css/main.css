@@ -508,6 +508,13 @@ h1.page-title {
   border-bottom-color: transparent;
 }
 
+/* Raleway's asterisk already sits high, so keep it on the baseline at a readable size. */
+.equal-contribution {
+  font-size: 1.35em;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
 .publication-link-sep {
   color: #999;
   margin: 0 0.15em;

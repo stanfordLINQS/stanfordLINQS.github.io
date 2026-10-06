@@ -41,7 +41,7 @@
     const equal = new Set(pub.equalContribution || []);
     return (pub.authors || "")
       .split(", ")
-      .map((name) => escapeHtml(name) + (equal.has(name) ? "<sup>*</sup>" : ""))
+      .map((name) => escapeHtml(name) + (equal.has(name) ? '<sup class="equal-contribution">*</sup>' : ""))
       .join(", ");
   }
 
