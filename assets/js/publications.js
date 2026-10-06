@@ -30,11 +30,19 @@
     return `
       <div class="publication-block">
         <div class="publication-text">
-          ${escapeHtml(pub.authors || "")}<br />
+          ${authorsHtml(pub)}<br />
           <span class="publication-title">${escapeHtml(pub.title || "")}</span><br />
           ${venueHtml(pub)}
         </div>
       </div>`;
+  }
+
+  function authorsHtml(pub) {
+    const equal = new Set(pub.equalContribution || []);
+    return (pub.authors || "")
+      .split(", ")
+      .map((name) => escapeHtml(name) + (equal.has(name) ? "<sup>†</sup>" : ""))
+      .join(", ");
   }
 
   function venueHtml(pub) {

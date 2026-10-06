@@ -11,7 +11,8 @@ preprint that has not been published yet, or a US patent (pending applications
 only when no granted patent has the same title). Conference abstracts,
 proceedings, corrections, and cover-art entries are dropped. Crossref and arXiv
 supply full author lists, DOIs, volume/pages, and arXiv IDs; Scholar's detail
-pages supply full patent inventor lists.
+pages supply full patent inventor lists. Co-first authors ("contributed equally")
+are read from each paper's arXiv LaTeX source and marked with a dagger.
 
 Hand fixes go in scripts/publications-overrides.json. Crossref lookups are
 cached in scripts/publications-cache.json so weekly runs only query new entries.
@@ -35,8 +36,10 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from equal_contribution import equal_contributors, source_texts
+
 SCHOLAR_USER = "QviK0DEAAAAJ"
-FIRST_YEAR = 2014
+FIRST_YEAR = 2016
 ARXIV_AUTHOR = "Safavi-Naeini"
 CROSSREF_MAILTO = "linqs-website@stanford.edu"
 
@@ -418,6 +421,9 @@ def build(scholar: list[dict], arxiv: list[dict], cache: dict, overrides: dict) 
             patents.append(app)
 
     entries = list(journals.values()) + list(preprints.values()) + patents
+    for entry in entries:
+        if entry.get("arxiv"):
+            mark_equal_contribution(entry, cache)
     apply_edits(entries, overrides.get("edit", {}))
     # Scholar lists newest first; keep that order within each year.
     entries.sort(key=lambda e: (-int(e["year"]), e.pop("_rank")))
@@ -450,6 +456,40 @@ def best_arxiv_match(entry: dict, arxiv: list[dict]) -> dict | None:
         if score >= best_score and first_family(entry["authors"]) == first_family(full_name_authors(paper["authors"])):
             best, best_score = paper, score
     return best
+
+
+def family(name: str) -> str:
+    """'D.J. Dean' -> 'dean'; 'R. Van Laer' -> 'vanlaer'."""
+    first, _, rest = name.partition(" ")
+    return norm(rest if first.endswith(".") and rest else name)
+
+
+def mark_equal_contribution(entry: dict, cache: dict) -> None:
+    """Flag co-first authors found in the arXiv source; needs the first author in the group.
+
+    Each paper's source is downloaded once; the result is cached for later runs.
+    """
+    key = f"equal|{entry['arxiv']}"
+    if key not in cache:
+        try:
+            blob = get(f"https://arxiv.org/e-print/{entry['arxiv']}", API_UA)
+        except Exception as exc:  # noqa: BLE001
+            print(f"warning: no arXiv source for {entry['arxiv']}: {exc}", file=sys.stderr)
+            return  # not cached, so the next run retries
+        cache[key] = equal_contributors(source_texts(blob))
+        time.sleep(3)
+
+    authors = entry["authors"].split(", ")
+    matched = set()
+    for name in cache[key]:
+        formatted = full_name_authors([name])
+        same = [a for a in authors if family(a) == family(formatted)]
+        if len(same) > 1:
+            same = [a for a in same if a[:1] == formatted[:1]]
+        if len(same) == 1:
+            matched.add(same[0])
+    if len(matched) >= 2 and authors[0] in matched:
+        entry["equalContribution"] = [a for a in authors if a in matched]
 
 
 def apply_edits(entries: list[dict], edits: dict) -> None:

@@ -25,7 +25,11 @@ window.PUBLICATIONS = [
     "pages": "L031001",
     "yearLabel": 2026,
     "doi": "10.1103/bl8b-7yqv",
-    "arxiv": "2602.17527"
+    "arxiv": "2602.17527",
+    "equalContribution": [
+      "K.K.S. Multani",
+      "Z. Ji"
+    ]
   },
   {
     "year": 2026,
@@ -42,7 +46,11 @@ window.PUBLICATIONS = [
     "title": "A two-dimensional piezo-optomechanical transducer",
     "journal": "arXiv",
     "arxiv": "2607.26161",
-    "yearLabel": 2026
+    "yearLabel": 2026,
+    "equalContribution": [
+      "T. Xie",
+      "N. Ooi"
+    ]
   },
   {
     "year": 2026,
@@ -63,7 +71,11 @@ window.PUBLICATIONS = [
     "journal": "Nature Physics",
     "yearLabel": 2026,
     "doi": "10.1038/s41567-026-03225-3",
-    "arxiv": "2502.18587"
+    "arxiv": "2502.18587",
+    "equalContribution": [
+      "M. Yuksel",
+      "M.P. Maksymowych"
+    ]
   },
   {
     "year": 2026,
@@ -119,7 +131,11 @@ window.PUBLICATIONS = [
     "pages": "1159–1164",
     "yearLabel": 2026,
     "doi": "10.1038/s41586-025-09959-z",
-    "arxiv": "2509.26425"
+    "arxiv": "2509.26425",
+    "equalContribution": [
+      "D.J. Dean",
+      "T. Park"
+    ]
   },
   {
     "year": 2026,
@@ -131,7 +147,11 @@ window.PUBLICATIONS = [
     "pages": "1166",
     "yearLabel": 2026,
     "doi": "10.1038/s41467-025-67932-w",
-    "arxiv": "2504.01920"
+    "arxiv": "2504.01920",
+    "equalContribution": [
+      "K.K.S. Multani",
+      "J.F. Herrmann"
+    ]
   },
   {
     "year": 2025,
@@ -143,7 +163,11 @@ window.PUBLICATIONS = [
     "pages": "394–399",
     "yearLabel": 2025,
     "doi": "10.1126/science.adx8657",
-    "arxiv": "2502.15164"
+    "arxiv": "2502.15164",
+    "equalContribution": [
+      "C.P. Anderson",
+      "G. Scuri"
+    ]
   },
   {
     "year": 2025,
@@ -155,7 +179,11 @@ window.PUBLICATIONS = [
     "pages": "154001",
     "yearLabel": 2025,
     "doi": "10.1063/5.0285138",
-    "arxiv": "2505.23100"
+    "arxiv": "2505.23100",
+    "equalContribution": [
+      "S. Malik",
+      "F.M. Mayor"
+    ]
   },
   {
     "year": 2025,
@@ -241,7 +269,13 @@ window.PUBLICATIONS = [
     "pages": "2576",
     "yearLabel": 2025,
     "doi": "10.1038/s41467-025-57948-7",
-    "arxiv": "2406.14484"
+    "arxiv": "2406.14484",
+    "equalContribution": [
+      "F.M. Mayor",
+      "S. Malik",
+      "A.G. Primo",
+      "S. Gyger"
+    ]
   },
   {
     "year": 2025,
@@ -249,7 +283,11 @@ window.PUBLICATIONS = [
     "title": "Frequency Fluctuations in Nanomechanical Resonators due to Quantum Defects",
     "journal": "arXiv",
     "arxiv": "2501.08289",
-    "yearLabel": 2025
+    "yearLabel": 2025,
+    "equalContribution": [
+      "M.P. Maksymowych",
+      "M. Yuksel"
+    ]
   },
   {
     "year": 2025,
@@ -282,7 +320,11 @@ window.PUBLICATIONS = [
     "pages": "054043",
     "yearLabel": 2024,
     "doi": "10.1103/physrevapplied.22.054043",
-    "arxiv": "2406.14501"
+    "arxiv": "2406.14501",
+    "equalContribution": [
+      "K.K.S. Multani",
+      "W. Jiang"
+    ]
   },
   {
     "year": 2024,
@@ -494,7 +536,11 @@ window.PUBLICATIONS = [
     "pages": "1423–1428",
     "yearLabel": 2023,
     "doi": "10.1038/s41567-023-02129-w",
-    "arxiv": "2210.10739"
+    "arxiv": "2210.10739",
+    "equalContribution": [
+      "W. Jiang",
+      "F.M. Mayor"
+    ]
   },
   {
     "year": 2023,
@@ -517,7 +563,12 @@ window.PUBLICATIONS = [
     "pages": "104001",
     "yearLabel": 2023,
     "doi": "10.1063/5.0157516",
-    "arxiv": "2304.13592"
+    "arxiv": "2304.13592",
+    "equalContribution": [
+      "S. Malik",
+      "W. Jiang",
+      "F.M. Mayor"
+    ]
   },
   {
     "year": 2023,
@@ -541,7 +592,12 @@ window.PUBLICATIONS = [
     "pages": "349",
     "yearLabel": 2023,
     "doi": "10.1364/optica.475387",
-    "arxiv": "2209.04034"
+    "arxiv": "2209.04034",
+    "equalContribution": [
+      "G.H. Ahn",
+      "A.D. White",
+      "H. Kim"
+    ]
   },
   {
     "year": 2022,
@@ -595,7 +651,11 @@ window.PUBLICATIONS = [
     "pages": "4532",
     "yearLabel": 2022,
     "doi": "10.1038/s41467-022-31134-5",
-    "arxiv": "2102.05617"
+    "arxiv": "2102.05617",
+    "equalContribution": [
+      "T.P. McKenna",
+      "H.S. Stokowski"
+    ]
   },
   {
     "year": 2022,
@@ -652,7 +712,11 @@ window.PUBLICATIONS = [
     "pages": "463–467",
     "yearLabel": 2022,
     "doi": "10.1038/s41586-022-04500-y",
-    "arxiv": "2110.07561"
+    "arxiv": "2110.07561",
+    "equalContribution": [
+      "E.A. Wollack",
+      "A.Y. Cleland"
+    ]
   },
   {
     "year": 2022,
@@ -723,7 +787,11 @@ window.PUBLICATIONS = [
     "pages": "044025",
     "yearLabel": 2021,
     "doi": "10.1103/physrevapplied.16.044025",
-    "arxiv": "2012.01718"
+    "arxiv": "2012.01718",
+    "equalContribution": [
+      "S.D. Mishra",
+      "R. Trivedi"
+    ]
   },
   {
     "year": 2021,
@@ -756,7 +824,13 @@ window.PUBLICATIONS = [
     "pages": "921",
     "yearLabel": 2021,
     "doi": "10.1364/optica.427428",
-    "arxiv": "2104.05990"
+    "arxiv": "2104.05990",
+    "equalContribution": [
+      "J. Mishra",
+      "T.P. McKenna",
+      "E. Ng",
+      "H.S. Stokowski"
+    ]
   },
   {
     "year": 2021,
@@ -789,7 +863,14 @@ window.PUBLICATIONS = [
     "pages": "020319",
     "yearLabel": 2021,
     "doi": "10.1103/prxquantum.2.020319",
-    "arxiv": "2009.05549"
+    "arxiv": "2009.05549",
+    "equalContribution": [
+      "G. Anikeeva",
+      "O. Marković",
+      "V. Borish",
+      "J.A. Hines",
+      "S.V. Rajagopal"
+    ]
   },
   {
     "year": 2021,
@@ -837,7 +918,11 @@ window.PUBLICATIONS = [
     "pages": "014039",
     "yearLabel": 2021,
     "doi": "10.1103/physrevapplied.15.014039",
-    "arxiv": "2007.04961"
+    "arxiv": "2007.04961",
+    "equalContribution": [
+      "F.M. Mayor",
+      "W. Jiang"
+    ]
   },
   {
     "year": 2020,
@@ -849,7 +934,11 @@ window.PUBLICATIONS = [
     "pages": "1737",
     "yearLabel": 2020,
     "doi": "10.1364/optica.397235",
-    "arxiv": "2005.00897"
+    "arxiv": "2005.00897",
+    "equalContribution": [
+      "T.P. McKenna",
+      "J.D. Witmer"
+    ]
   },
   {
     "year": 2020,
@@ -861,7 +950,11 @@ window.PUBLICATIONS = [
     "pages": "156",
     "yearLabel": 2020,
     "doi": "10.1038/s42005-020-00412-3",
-    "arxiv": "1911.10973"
+    "arxiv": "1911.10973",
+    "equalContribution": [
+      "W. Jiang",
+      "F.M. Mayor"
+    ]
   },
   {
     "year": 2020,
@@ -932,7 +1025,11 @@ window.PUBLICATIONS = [
     "pages": "024069",
     "yearLabel": 2020,
     "doi": "10.1103/physrevapplied.13.024069",
-    "arxiv": "1907.13058"
+    "arxiv": "1907.13058",
+    "equalContribution": [
+      "Y.D. Dahmani",
+      "C.J. Sarabalis"
+    ]
   },
   {
     "year": 2019,
@@ -967,7 +1064,11 @@ window.PUBLICATIONS = [
     "pages": "537–540",
     "yearLabel": 2019,
     "doi": "10.1038/s41586-019-1386-x",
-    "arxiv": "1902.04681"
+    "arxiv": "1902.04681",
+    "equalContribution": [
+      "P. Arrangoiz-Arriola",
+      "E.A. Wollack"
+    ]
   },
   {
     "year": 2019,
@@ -987,7 +1088,13 @@ window.PUBLICATIONS = [
     "title": "Alignment-free cryogenic optical coupling to an optomechanical crystal",
     "journal": "arXiv",
     "arxiv": "1904.05293",
-    "yearLabel": 2019
+    "yearLabel": 2019,
+    "equalContribution": [
+      "T.P. McKenna",
+      "R.N. Patel",
+      "J.D. Witmer",
+      "R. Van Laer"
+    ]
   },
   {
     "year": 2019,
@@ -999,7 +1106,11 @@ window.PUBLICATIONS = [
     "pages": "021049",
     "yearLabel": 2019,
     "doi": "10.1103/physrevx.9.021049",
-    "arxiv": "1901.09171"
+    "arxiv": "1901.09171",
+    "equalContribution": [
+      "Z. Wang",
+      "M. Pechal"
+    ]
   },
   {
     "year": 2019,
@@ -1058,7 +1169,11 @@ window.PUBLICATIONS = [
     "pages": "123602",
     "yearLabel": 2018,
     "doi": "10.1103/physrevlett.121.123602",
-    "arxiv": "1806.09704"
+    "arxiv": "1806.09704",
+    "equalContribution": [
+      "E.J. Davis",
+      "Z. Wang"
+    ]
   },
   {
     "year": 2018,
@@ -1082,7 +1197,11 @@ window.PUBLICATIONS = [
     "pages": "22075",
     "yearLabel": 2018,
     "doi": "10.1364/oe.26.022075",
-    "arxiv": "1710.04197"
+    "arxiv": "1710.04197",
+    "equalContribution": [
+      "C.J. Sarabalis",
+      "R. Van Laer"
+    ]
   },
   {
     "year": 2018,
@@ -1246,72 +1365,5 @@ window.PUBLICATIONS = [
     "yearLabel": 2016,
     "doi": "10.1364/oe.24.005876",
     "arxiv": "1604.05647"
-  },
-  {
-    "year": 2015,
-    "authors": "A.G. Krause, J.T. Hill, M. Ludwig, A.H. Safavi-Naeini, J. Chan, F. Marquardt, O. Painter",
-    "title": "Nonlinear Radiation Pressure Dynamics in an Optomechanical Crystal",
-    "journal": "Physical Review Letters",
-    "volume": "115",
-    "issue": "23",
-    "pages": "233601",
-    "yearLabel": 2015,
-    "doi": "10.1103/physrevlett.115.233601",
-    "arxiv": "1504.05909"
-  },
-  {
-    "year": 2015,
-    "authors": "J.D. Cohen, S.M. Meenehan, G.S. MacCabe, S. Gröblacher, A.H. Safavi-Naeini, F. Marsili, M.D. Shaw, O. Painter",
-    "title": "Phonon counting and intensity interferometry of a nanomechanical resonator",
-    "journal": "Nature",
-    "volume": "520",
-    "issue": "7548",
-    "pages": "522–525",
-    "yearLabel": 2015,
-    "doi": "10.1038/nature14349",
-    "arxiv": "1410.1047"
-  },
-  {
-    "year": 2015,
-    "authors": "A. Pitanti, J.M. Fink, A.H. Safavi-Naeini, J.T. Hill, C.U. Lei, A. Tredicucci, O. Painter",
-    "title": "Strong opto-electro-mechanical coupling in a silicon photonic crystal cavity",
-    "journal": "Optics Express",
-    "volume": "23",
-    "issue": "3",
-    "pages": "3196",
-    "yearLabel": 2015,
-    "doi": "10.1364/oe.23.003196"
-  },
-  {
-    "year": 2014,
-    "authors": "O. Painter, M. Winger, Q. Lin, A. Safavi-Naeini, T. Alegre, T.D. Blasius, A.G. Krause",
-    "title": "Systems and methods for tuning a cavity",
-    "journal": "US Patent",
-    "patent": "8,849,075",
-    "url": "https://patents.google.com/patent/US8849075B2/en",
-    "yearLabel": 2014
-  },
-  {
-    "year": 2014,
-    "authors": "S.M. Meenehan, J.D. Cohen, S. Gröblacher, J.T. Hill, A.H. Safavi-Naeini, M. Aspelmeyer, O. Painter",
-    "title": "Silicon optomechanical crystal resonator at millikelvin temperatures",
-    "journal": "Physical Review A",
-    "volume": "90",
-    "issue": "1",
-    "pages": "011803",
-    "yearLabel": 2014,
-    "doi": "10.1103/physreva.90.011803"
-  },
-  {
-    "year": 2014,
-    "authors": "A.H. Safavi-Naeini, J.T. Hill, S. Meenehan, J. Chan, S. Gröblacher, O. Painter",
-    "title": "Two-Dimensional Phononic-Photonic Band Gap Optomechanical Crystal Cavity",
-    "journal": "Physical Review Letters",
-    "volume": "112",
-    "issue": "15",
-    "pages": "153603",
-    "yearLabel": 2014,
-    "doi": "10.1103/physrevlett.112.153603",
-    "arxiv": "1401.1493"
   }
 ];
