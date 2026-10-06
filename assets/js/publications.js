@@ -40,6 +40,13 @@
   function venueHtml(pub) {
     const parts = [];
 
+    if (pub.patent) {
+      const label = `<em>${escapeHtml(pub.journal)}</em> ${escapeHtml(pub.patent)} (${pub.yearLabel || pub.year})`;
+      return pub.url
+        ? `<a href="${escapeAttr(pub.url)}" class="publication-journal">${label}</a>`
+        : `<span class="publication-journal">${label}</span>`;
+    }
+
     if (pub.journal && pub.journal !== "arXiv") {
       const detail = formatJournalDetail(pub);
       if (pub.doi) {
