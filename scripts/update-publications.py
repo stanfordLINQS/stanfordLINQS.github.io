@@ -80,9 +80,9 @@ def get(url: str, ua: str, retries: int = 3) -> bytes:
             req = urllib.request.Request(url, headers={"User-Agent": ua})
             with urllib.request.urlopen(req, timeout=60) as resp:
                 return resp.read()
-        except Exception:  # noqa: BLE001
+        except Exception as exc:  # noqa: BLE001
             if attempt == retries - 1:
-                raise
+                raise RuntimeError(f"{exc} ({url.split('?')[0]})") from exc
             time.sleep(5 * (attempt + 1))
     raise AssertionError("unreachable")
 
