@@ -13,7 +13,11 @@ window.PUBLICATIONS = [
     "issue": "6817",
     "pages": "1217–1220",
     "yearLabel": 2026,
-    "doi": "10.1126/science.aeh7535"
+    "doi": "10.1126/science.aeh7535",
+    "equalContribution": [
+      "T. Makihara",
+      "E. Szakiel"
+    ]
   },
   {
     "year": 2026,

@@ -13783,6 +13783,492 @@
   "type": "journal-article",
   "volume": "111"
  },
+ "pubmed|10.1002/adom.202502355": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1021/acsphotonics.3c00992": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1038/ncomms15886": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1038/s41467-020-14863-3": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1038/s41467-022-29204-9": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1038/s41467-022-31134-5": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": [
+   "Timothy P McKenna",
+   "Hubert S Stokowski"
+  ]
+ },
+ "pubmed|10.1038/s41467-023-38246-6": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1038/s41467-024-48306-0": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1038/s41467-024-48975-x": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1038/s41467-025-57948-7": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": [
+   "Felix M Mayor",
+   "Sultan Malik",
+   "André G Primo",
+   "Samuel Gyger"
+  ]
+ },
+ "pubmed|10.1038/s41467-025-67932-w": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": [
+   "Kevin K S Multani",
+   "Jason F Herrmann"
+  ]
+ },
+ "pubmed|10.1038/s41566-022-01026-7": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1038/s41566-026-01999-9": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1038/s41567-023-02129-w": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1038/s41567-026-03225-3": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1038/s41586-019-1386-x": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": [
+   "Patricio Arrangoiz-Arriola",
+   "E Alex Wollack"
+  ]
+ },
+ "pubmed|10.1038/s41586-022-04500-y": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": [
+   "E Alex Wollack",
+   "Agnetta Y Cleland"
+  ]
+ },
+ "pubmed|10.1038/s41586-024-07071-2": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1038/s41586-025-09959-z": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": [
+   "Devin J Dean",
+   "Taewon Park"
+  ]
+ },
+ "pubmed|10.1038/s41598-024-57168-x": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1038/s42005-020-00412-3": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1038/s44310-026-00125-5": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1038/srep46313": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1063/1.4955002": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1063/1.5042428": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1063/1.5111151": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1063/1.5126428": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1063/5.0012288": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1063/5.0034909": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1063/5.0157516": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1063/5.0285138": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1063/5.0313577": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1088/2040-8986/aa600d": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1088/2058-9565/aadc6c": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1088/2058-9565/ab043e": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1088/2058-9565/ab7eed": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1088/2515-7647/ac1ef4": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/22rx-v855": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/4b8v-qdcj": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/bl8b-7yqv": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/gv96-8xp1": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physics.9.64": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physreva.101.053807": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physreva.109.042607": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physreva.111.012614": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physreva.94.063864": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physreva.96.042305": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physrevapplied.13.024069": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physrevapplied.15.014039": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physrevapplied.16.044025": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physrevapplied.22.054043": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physrevapplied.8.041001": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physrevlett.121.040501": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1103/physrevlett.121.083601": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1103/physrevlett.121.123602": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1103/physrevlett.126.193901": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1103/physrevlett.127.133602": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1103/physrevlett.133.020801": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1103/physrevx.8.031007": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/physrevx.9.021049": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/prxquantum.2.017002": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/prxquantum.2.020319": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/prxquantum.3.010329": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/prxquantum.3.020302": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/prxquantum.4.040342": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1103/tgs3-kkw8": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1126/sciadv.adl1814": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1126/science.adx8657": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": [
+   "Christopher P Anderson",
+   "Giovanni Scuri"
+  ]
+ },
+ "pubmed|10.1126/science.aeh7535": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": [
+   "Takuma Makihara",
+   "Erik Szakiel"
+  ]
+ },
+ "pubmed|10.1364/ao.58.002235": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/oe.24.005876": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/oe.26.022075": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/oe.27.028782": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/oe.460119": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/oe.467580": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/oe.476970": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/oe.502142": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/oe.514649": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/oe.538150": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/ol.455046": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/ol.568165": {
+  "checked": "2026-10-06",
+  "found": true,
+  "names": []
+ },
+ "pubmed|10.1364/optica.397235": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1364/optica.4.001147": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1364/optica.413401": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1364/optica.427428": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1364/optica.438620": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1364/optica.475387": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1364/optica.502487": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1364/optica.510591": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1364/optica.6.000213": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.1364/optica.6.000845": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.22331/q-2023-09-25-1118": {
+  "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
  "qfarmworkshopsummarymillimeterwavequantumscience|": null,
  "quantumacousticswithlithiumniobatenanocavities|cleoscienceandinnovationsjw4a42019": null,
  "quantumacousticswithlithiumniobateonsilicon|apsmarchmeetingabstracts2018c330082018": null,

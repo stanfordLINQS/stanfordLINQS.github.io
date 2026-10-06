@@ -12,7 +12,8 @@ only when no granted patent has the same title). Conference abstracts,
 proceedings, corrections, and cover-art entries are dropped. Crossref and arXiv
 supply full author lists, DOIs, volume/pages, and arXiv IDs; Scholar's detail
 pages supply full patent inventor lists. Co-first authors ("contributed equally")
-are read from each paper's arXiv LaTeX source and marked with a dagger.
+are read from PubMed's equal-contribution flags (published version), falling back
+to each paper's arXiv LaTeX source, and marked with an asterisk.
 
 Hand fixes go in scripts/publications-overrides.json. Crossref lookups are
 cached in scripts/publications-cache.json so weekly runs only query new entries.
@@ -24,6 +25,7 @@ if the result looks truncated, the script exits non-zero without writing.
 from __future__ import annotations
 
 import argparse
+import datetime
 import difflib
 import html
 import json
@@ -430,7 +432,7 @@ def build(scholar: list[dict], arxiv: list[dict], cache: dict, overrides: dict) 
 
     entries = list(journals.values()) + list(preprints.values()) + patents
     for entry in entries:
-        if entry.get("arxiv"):
+        if not entry.get("patent"):
             mark_equal_contribution(entry, cache)
     apply_edits(entries, overrides.get("edit", {}))
     # Scholar lists newest first; keep that order within each year.
@@ -472,24 +474,72 @@ def family(name: str) -> str:
     return norm(rest if first.endswith(".") and rest else name)
 
 
-def mark_equal_contribution(entry: dict, cache: dict) -> None:
-    """Flag co-first authors found in the arXiv source; needs the first author in the group.
+EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+PUBMED_RECHECK_DAYS = 30
 
-    Each paper's source is downloaded once; the result is cached for later runs.
+
+def pubmed_equal(doi: str) -> dict:
+    """Authors PubMed flags EqualContrib="Y" for this DOI ({"found": False} if not indexed)."""
+    ident = {"tool": "linqs-website", "email": CROSSREF_MAILTO}
+    query = urllib.parse.urlencode({"db": "pubmed", "term": f"{doi}[doi]", "retmode": "json", **ident})
+    ids = json.loads(get(EUTILS + "esearch.fcgi?" + query, API_UA))["esearchresult"]["idlist"]
+    if len(ids) != 1:
+        return {"found": False, "names": []}
+    time.sleep(0.4)
+    query = urllib.parse.urlencode({"db": "pubmed", "id": ids[0], "retmode": "xml", **ident})
+    root = ET.fromstring(get(EUTILS + "efetch.fcgi?" + query, API_UA))
+    names = [
+        f"{a.findtext('ForeName', '')} {a.findtext('LastName', '')}".strip()
+        for a in root.iter("Author")
+        if a.get("EqualContrib") == "Y" and a.findtext("LastName")
+    ]
+    return {"found": True, "names": names}
+
+
+def equal_names(entry: dict, cache: dict) -> list[str]:
+    """Equal-contribution names from PubMed if it has them, else from the arXiv source.
+
+    Results are cached; old arXiv sources don't change, so each is downloaded once.
+    PubMed can index a paper weeks after publication, so recent misses are rechecked.
     """
-    key = f"equal|{entry['arxiv']}"
-    if key not in cache:
-        try:
-            blob = get(f"https://arxiv.org/e-print/{entry['arxiv']}", API_UA)
-        except Exception as exc:  # noqa: BLE001
-            print(f"warning: no arXiv source for {entry['arxiv']}: {exc}", file=sys.stderr)
-            return  # not cached, so the next run retries
-        cache[key] = equal_contributors(source_texts(blob))
-        time.sleep(3)
+    today = datetime.date.today()
+    if entry.get("doi"):
+        key = f"pubmed|{entry['doi']}"
+        hit = cache.get(key)
+        stale = (
+            hit is not None
+            and not hit["found"]
+            and int(entry["year"]) >= today.year - 1
+            and (today - datetime.date.fromisoformat(hit["checked"])).days >= PUBMED_RECHECK_DAYS
+        )
+        if hit is None or stale:
+            try:
+                cache[key] = {**pubmed_equal(entry["doi"]), "checked": today.isoformat()}
+                time.sleep(0.4)
+            except Exception as exc:  # noqa: BLE001
+                print(f"warning: PubMed lookup failed for {entry['doi']}: {exc}", file=sys.stderr)
+        if cache.get(key, {}).get("names"):
+            return cache[key]["names"]
 
+    if entry.get("arxiv"):
+        key = f"equal|{entry['arxiv']}"
+        if key not in cache:
+            try:
+                blob = get(f"https://arxiv.org/e-print/{entry['arxiv']}", API_UA)
+            except Exception as exc:  # noqa: BLE001
+                print(f"warning: no arXiv source for {entry['arxiv']}: {exc}", file=sys.stderr)
+                return []  # not cached, so the next run retries
+            cache[key] = equal_contributors(source_texts(blob))
+            time.sleep(3)
+        return cache[key]
+    return []
+
+
+def mark_equal_contribution(entry: dict, cache: dict) -> None:
+    """Flag co-first authors; requires the first author to be in the group."""
     authors = entry["authors"].split(", ")
     matched = set()
-    for name in cache[key]:
+    for name in equal_names(entry, cache):
         formatted = full_name_authors([name])
         same = [a for a in authors if family(a) == family(formatted)]
         if len(same) > 1:
