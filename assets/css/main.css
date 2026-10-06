@@ -1248,6 +1248,11 @@ h1.page-title {
   object-fit: contain;
 }
 
+.funding-logos img.funding-logo-wide {
+  height: 32px;
+  max-width: 352px;
+}
+
 footer {
   background: #2f2f2f;
   color: #ccc;
