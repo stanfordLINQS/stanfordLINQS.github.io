@@ -77,7 +77,15 @@ ARXIV_VENUE = re.compile(r"arXiv:(\d{4}\.\d{4,5}|[a-z\-]+/\d{7})", re.IGNORECASE
 def get(url: str, ua: str, retries: int = 3) -> bytes:
     for attempt in range(retries):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": ua})
+            headers = {"User-Agent": ua}
+            if ua == BROWSER_UA:
+                headers.update(
+                    {
+                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                        "Accept-Language": "en-US,en;q=0.9",
+                    }
+                )
+            req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=60) as resp:
                 return resp.read()
         except Exception as exc:  # noqa: BLE001

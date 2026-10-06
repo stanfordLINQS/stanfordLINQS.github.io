@@ -1,8 +1,12 @@
 name: Update publications
 
+# Google Scholar intermittently blocks GitHub's servers, so this tries every 3 hours
+# and skips the rest of the day after the first successful update. A blocked attempt
+# is only a warning; the run fails (and GitHub emails) after a week without success.
+
 on:
   schedule:
-    - cron: "17 11 * * *" # daily, ~4am Pacific
+    - cron: "17 */3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -17,23 +21,68 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - name: Find last successful update
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.publications-last-success
+          key: publications-ok-never
+          restore-keys: publications-ok-
+
+      - name: Decide whether to run
+        id: gate
+        run: |
+          today=$(date -u +%F)
+          last=$(cat ~/.publications-last-success 2>/dev/null || echo none)
+          echo "Last successful update: $last"
+          echo "today=$today" >> "$GITHUB_OUTPUT"
+          echo "last=$last" >> "$GITHUB_OUTPUT"
+          if [ "$last" = "$today" ] && [ "$GITHUB_EVENT_NAME" = schedule ]; then
+            echo "Already updated today."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v6
+        if: steps.gate.outputs.run == 'true'
         with:
           python-version: "3.12"
 
       - name: Regenerate publications from Google Scholar
+        id: update
+        if: steps.gate.outputs.run == 'true'
+        continue-on-error: true
         run: python scripts/update-publications.py --verbose
 
       - name: Commit changes
+        if: steps.update.outcome == 'success'
         run: |
           git add assets/js/publications-data.js scripts/publications-cache.json
           if git diff --cached --quiet; then
             echo "Publications unchanged."
-            exit 0
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Update publications from Google Scholar."
+            git push
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Update publications from Google Scholar."
-          git push
+          echo "${{ steps.gate.outputs.today }}" > ~/.publications-last-success
+
+      - name: Record success
+        if: steps.update.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.publications-last-success
+          key: publications-ok-${{ steps.gate.outputs.today }}-${{ github.run_id }}
+
+      - name: Report a blocked attempt
+        if: steps.update.outcome == 'failure'
+        run: |
+          echo "::warning::Couldn't update publications this time (Google Scholar likely blocked the request). Will retry in 3 hours."
+          last="${{ steps.gate.outputs.last }}"
+          if [ "$last" != none ] && [ $(( ($(date -u +%s) - $(date -u -d "$last" +%s)) / 86400 )) -gt 7 ]; then
+            echo "::error::No successful publications update since $last."
+            exit 1
+          fi
