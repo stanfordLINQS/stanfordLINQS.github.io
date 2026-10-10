@@ -14,6 +14,7 @@ window.PUBLICATIONS = [
     "pages": "1217–1220",
     "yearLabel": 2026,
     "doi": "10.1126/science.aeh7535",
+    "arxiv": "2610.10714",
     "equalContribution": [
       "T. Makihara",
       "E. Szakiel"
