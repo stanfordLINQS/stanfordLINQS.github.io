@@ -6,6 +6,19 @@
 window.PUBLICATIONS = [
   {
     "year": 2026,
+    "authors": "O.A. Hitchcock, M.P. Maksymowych, K. Pezeshki, T. Makihara, E. Szakiel, C.W. Kiang, D. Rugar, A.H. Safavi-Naeini",
+    "title": "Millisecond phonon lifetimes in piezoelectric nanomechanical resonators",
+    "journal": "arXiv",
+    "arxiv": "2610.10700",
+    "yearLabel": 2026,
+    "equalContribution": [
+      "O.A. Hitchcock",
+      "M.P. Maksymowych",
+      "K. Pezeshki"
+    ]
+  },
+  {
+    "year": 2026,
     "authors": "T. Makihara, E. Szakiel, M.P. Maksymowych, O.A. Hitchcock, K. Pezeshki, R.G. Gruenke-Freudenstein, M. Pendharkar, S.P. Harvey, D.I. Schuster, A.H. Safavi-Naeini",
     "title": "Quantum jumps of sound",
     "journal": "Science",
