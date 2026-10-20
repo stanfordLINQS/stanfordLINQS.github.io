@@ -8,9 +8,10 @@ window.PUBLICATIONS = [
     "year": 2026,
     "authors": "O.A. Hitchcock, M.P. Maksymowych, K. Pezeshki, T. Makihara, E. Szakiel, C.W. Kiang, D. Rugar, A.H. Safavi-Naeini",
     "title": "Millisecond phonon lifetimes in piezoelectric nanomechanical resonators",
-    "journal": "arXiv",
-    "arxiv": "2610.10700",
+    "journal": "Nature Nanotechnology",
     "yearLabel": 2026,
+    "doi": "10.1038/s41565-026-02289-9",
+    "arxiv": "2610.10700",
     "equalContribution": [
       "O.A. Hitchcock",
       "M.P. Maksymowych",

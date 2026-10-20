@@ -11023,6 +11023,124 @@
  "millimeterwaveinterconnectsforsuperconductingquantumdevices|apsmarchmeetingabstracts2018f330052018": null,
  "millimeterwavesensingofmaterialspart2ontip|apsglobalphysicssummit20262026": null,
  "millimeterwavetotelecomelectroopticfrequencytransductiononthinfilmlithiumniobate|apsmarchmeetingabstracts2024f530042024": null,
+ "millisecondphononlifetimesinpiezoelectricnanomechanicalresonators|naturenanotechnology152026": {
+  "DOI": "10.1038/s41565-026-02289-9",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0009-0002-6831-0614",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Hitchcock",
+    "given": "Oliver A.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-3579-8791",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Maksymowych",
+    "given": "Matthew P.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4363-185X",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Pezeshki",
+    "given": "Kaveh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Makihara",
+    "given": "Takuma",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Szakiel",
+    "given": "Erik",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kiang",
+    "given": "Chou-Wei",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-2826-2638",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Rugar",
+    "given": "Daniel",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6176-1274",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Safavi-Naeini",
+    "given": "Amir H.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Nature Nanotechnology"
+  ],
+  "title": [
+   "Millisecond phonon lifetimes in piezoelectric nanomechanical resonators"
+  ],
+  "type": "journal-article"
+ },
  "mirrorsymmetriconchipfrequencycirculationoflight|naturephotonics1686036082022": {
   "DOI": "10.1038/s41566-022-01026-7",
   "author": [
@@ -13854,6 +13972,15 @@
   "names": [
    "Kevin K S Multani",
    "Jason F Herrmann"
+  ]
+ },
+ "pubmed|10.1038/s41565-026-02289-9": {
+  "checked": "2026-10-20",
+  "found": true,
+  "names": [
+   "Oliver A Hitchcock",
+   "Matthew P Maksymowych",
+   "Kaveh Pezeshki"
   ]
  },
  "pubmed|10.1038/s41566-022-01026-7": {
