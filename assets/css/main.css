@@ -524,6 +524,117 @@ h1.page-title {
   color: #666;
 }
 
+/* News page and the home-page Latest News list */
+
+.news-year-heading {
+  font-weight: 600;
+  font-size: 1.75em;
+  color: var(--stanford-red);
+  margin: 0 0 0.75em;
+}
+
+.news-item {
+  max-width: 48em;
+  margin-bottom: 2.25em;
+  scroll-margin-top: 1em;
+}
+
+.news-meta {
+  margin: 0 0 0.25em;
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #777;
+}
+
+.news-tag {
+  color: var(--stanford-red);
+  margin-left: 0.75em;
+  padding-left: 0.75em;
+  border-left: 1px solid #ccc;
+}
+
+h3.news-title {
+  font-size: 1.15em;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 0.35em;
+}
+
+.news-item:target h3.news-title {
+  color: var(--stanford-red);
+}
+
+.news-summary {
+  line-height: 1.6;
+  margin: 0 0 0.5em;
+}
+
+.news-links {
+  font-weight: 700;
+  margin: 0;
+}
+
+.news-links + .news-links {
+  margin-top: 0.25em;
+}
+
+.news-links-label {
+  font-weight: 600;
+  color: #777;
+}
+
+.news-figure {
+  margin: 0.75em 0;
+}
+
+.news-figure img {
+  display: block;
+  width: 100%;
+  max-width: 40em;
+  border-radius: 4px;
+}
+
+.news-figure figcaption {
+  font-size: 0.8em;
+  color: #777;
+  margin-top: 0.4em;
+}
+
+.news-status {
+  color: #666;
+}
+
+.news-latest-list {
+  list-style: none;
+  margin: 0 0 1em;
+  border-top: 1px solid #e5e5e5;
+}
+
+.news-latest-item {
+  padding: 0.85em 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.news-latest-item .news-meta {
+  margin-bottom: 0.1em;
+}
+
+.news-latest-title {
+  color: #333;
+  font-weight: 600;
+  border-bottom: none;
+}
+
+.news-latest-title:hover {
+  color: var(--stanford-red);
+}
+
+.news-all-link {
+  font-weight: 600;
+}
+
 /* People page */
 .people-carousel {
   position: relative;
