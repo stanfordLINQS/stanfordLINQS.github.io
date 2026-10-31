@@ -6,6 +6,17 @@
 window.PUBLICATIONS = [
   {
     "year": 2026,
+    "authors": "T. Rajabzadeh, A. Boulton-McKeehan, S. Bonkowsky, D.I. Schuster, A.H. Safavi-Naeini",
+    "title": "A General Framework for Gradient-Based Optimization of Superconducting Quantum Circuits using Qubit Discovery as a Case Study",
+    "journal": "Quantum",
+    "volume": "10",
+    "pages": "2249",
+    "yearLabel": 2026,
+    "doi": "10.22331/q-2026-10-27-2249",
+    "arxiv": "2408.12704"
+  },
+  {
+    "year": 2026,
     "authors": "O.A. Hitchcock, M.P. Maksymowych, K. Pezeshki, T. Makihara, E. Szakiel, C.W. Kiang, D. Rugar, A.H. Safavi-Naeini",
     "title": "Millisecond phonon lifetimes in piezoelectric nanomechanical resonators",
     "journal": "Nature Nanotechnology",
@@ -355,14 +366,6 @@ window.PUBLICATIONS = [
     "pages": "36160",
     "yearLabel": 2024,
     "doi": "10.1364/oe.538150"
-  },
-  {
-    "year": 2024,
-    "authors": "T. Rajabzadeh, A. Boulton-McKeehan, S. Bonkowsky, D.I. Schuster, A.H. Safavi-Naeini",
-    "title": "A General Framework for Gradient-Based Optimization of Superconducting Quantum Circuits using Qubit Discovery as a Case Study",
-    "journal": "arXiv",
-    "arxiv": "2408.12704",
-    "yearLabel": 2024
   },
   {
     "year": 2024,

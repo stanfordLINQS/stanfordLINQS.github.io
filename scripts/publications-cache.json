@@ -1084,6 +1084,101 @@
   "volume": "8"
  },
  "acoustoopticsinlithiumniobateonsapphire|cleoqelsfundamentalsciencefth3c52020": null,
+ "ageneralframeworkforgradientbasedoptimizationofsuperconductingquantumcircuitsusingqubitdiscoveryasacasestudy|quantum1022492026": {
+  "DOI": "10.22331/q-2026-10-27-2249",
+  "article-number": "2249",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Department of Electrical Engineering, Stanford University, Stanford, CA 94305 USA"
+     }
+    ],
+    "family": "Rajabzadeh",
+    "given": "Taha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "E. L. Ginzton Laboratory and the Department of Applied Physics, Stanford University, Stanford, CA 94305 USA"
+     }
+    ],
+    "family": "Boulton-McKeehan",
+    "given": "Alex",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Physics, Stanford University, Stanford, CA 94305 USA"
+     }
+    ],
+    "family": "Bonkowsky",
+    "given": "Sam",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "E. L. Ginzton Laboratory and the Department of Applied Physics, Stanford University, Stanford, CA 94305 USA"
+     }
+    ],
+    "family": "Schuster",
+    "given": "David I.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "E. L. Ginzton Laboratory and the Department of Applied Physics, Stanford University, Stanford, CA 94305 USA"
+     }
+    ],
+    "family": "Safavi-Naeini",
+    "given": "Amir H.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Quantum"
+  ],
+  "page": "2249",
+  "title": [
+   "A General Framework for Gradient-Based Optimization of Superconducting Quantum Circuits using Qubit Discovery as a Case Study"
+  ],
+  "type": "journal-article",
+  "volume": "10"
+ },
  "alithiumniobateelectrooptictransducerforquantumnetworks|bulletinoftheamericanphysicalsociety652020": null,
  "amicrowavetoopticaltransducerbasedonatwodimensionaloptomechanicalcrystal|quantum20qtu4a42024": null,
  "analysisofarbitrarysuperconductingquantumcircuitsaccompaniedbyapythonpackagesqcircuit|quantum711182023": {
@@ -14400,6 +14495,11 @@
  },
  "pubmed|10.22331/q-2023-09-25-1118": {
   "checked": "2026-10-06",
+  "found": false,
+  "names": []
+ },
+ "pubmed|10.22331/q-2026-10-27-2249": {
+  "checked": "2026-10-31",
   "found": false,
   "names": []
  },
