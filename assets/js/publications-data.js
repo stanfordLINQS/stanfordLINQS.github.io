@@ -13,7 +13,11 @@ window.PUBLICATIONS = [
     "pages": "2249",
     "yearLabel": 2026,
     "doi": "10.22331/q-2026-10-27-2249",
-    "arxiv": "2408.12704"
+    "arxiv": "2408.12704",
+    "equalContribution": [
+      "A. Boulton-McKeehan",
+      "S. Bonkowsky"
+    ]
   },
   {
     "year": 2026,

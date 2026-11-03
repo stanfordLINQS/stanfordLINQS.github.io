@@ -1,4 +1,4 @@
-"""Find co-first ("contributed equally") authors in an arXiv paper's LaTeX source.
+"""Find equal-contribution authors in an arXiv paper's LaTeX source.
 
 Handles the conventions used across the lab's papers:
   * REVTeX:   \\author{Name}\\thanks{These authors contributed equally}

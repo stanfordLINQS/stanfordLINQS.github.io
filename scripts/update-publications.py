@@ -11,7 +11,7 @@ preprint that has not been published yet, or a US patent (pending applications
 only when no granted patent has the same title). Conference abstracts,
 proceedings, corrections, and cover-art entries are dropped. Crossref and arXiv
 supply full author lists, DOIs, volume/pages, and arXiv IDs; Scholar's detail
-pages supply full patent inventor lists. Co-first authors ("contributed equally")
+pages supply full patent inventor lists. Equal-contribution authors ("contributed equally")
 are read from PubMed's equal-contribution flags (published version), falling back
 to each paper's arXiv LaTeX source, and marked with an asterisk.
 
@@ -536,7 +536,7 @@ def equal_names(entry: dict, cache: dict) -> list[str]:
 
 
 def mark_equal_contribution(entry: dict, cache: dict) -> None:
-    """Flag co-first authors; requires the first author to be in the group."""
+    """Flag equal contributors, regardless of their position in the author list."""
     authors = entry["authors"].split(", ")
     matched = set()
     for name in equal_names(entry, cache):
@@ -546,7 +546,7 @@ def mark_equal_contribution(entry: dict, cache: dict) -> None:
             same = [a for a in same if a[:1] == formatted[:1]]
         if len(same) == 1:
             matched.add(same[0])
-    if len(matched) >= 2 and authors[0] in matched:
+    if len(matched) >= 2:
         entry["equalContribution"] = [a for a in authors if a in matched]
 
 
