@@ -526,7 +526,13 @@ window.PUBLICATIONS = [
     "pages": "4236–4243",
     "yearLabel": 2023,
     "doi": "10.1021/acsphotonics.3c00992",
-    "arxiv": "2306.15207"
+    "arxiv": "2306.15207",
+    "equalContribution": [
+      "H. Lee",
+      "J.F. Herrmann",
+      "J. Grzesik",
+      "V. Ansari"
+    ]
   },
   {
     "year": 2023,
@@ -778,7 +784,14 @@ window.PUBLICATIONS = [
     "pages": "010329",
     "yearLabel": 2022,
     "doi": "10.1103/prxquantum.3.010329",
-    "arxiv": "2012.04108"
+    "arxiv": "2012.04108",
+    "equalContribution": [
+      "P. Arrangoiz-Arriola",
+      "E.T. Campbell",
+      "C.T. Hann",
+      "J. Iverson",
+      "H. Putterman"
+    ]
   },
   {
     "year": 2022,
