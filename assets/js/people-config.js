@@ -26,6 +26,8 @@ window.PEOPLE_CONFIG = {
 
   // Stanford Digital Repository links for Ph.D. alumni theses.
   THESIS_URLS: {
+    "Alex Hwang": "https://purl.stanford.edu/kw655gq3662",
+    "Takuma Makihara": "https://purl.stanford.edu/mb136dd2135",
     "Oguz Tolga Celik": "https://purl.stanford.edu/by529gb1292",
     "Jason Herrmann": "https://purl.stanford.edu/ww291sc8380",
     "Kevin Multani": "https://purl.stanford.edu/hj093bg3377",
